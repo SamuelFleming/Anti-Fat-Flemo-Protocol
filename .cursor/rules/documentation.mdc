@@ -1,0 +1,64 @@
+---
+description: Anti-Fat-Flemo documentation, design specs, and ticket discipline
+globs: docs/**/*
+alwaysApply: false
+---
+
+# Documentation Rules
+
+Keep documentation lightweight and useful for rapid AI-assisted development.
+Prefer links to canonical material over repeating the same requirement in multiple files.
+
+## Canonical locations
+
+- Product/technical scope → `docs/core-scope/`
+- Visual/design work → `docs/DesignConcept/`
+- Implementation tickets → `docs/devTickets/phase{N}/`
+- Upcoming queue → `docs/devTickets/devTickets_next.md`
+- Completion registry → `docs/devTickets/devCompletion.md`
+
+## Core-scope responsibilities
+
+- `01-Project-Overview.md` — identity/purpose.
+- `02-Core-Scope.md` — current product boundaries.
+- `03-User-Flows.md` — user journeys and behaviour.
+- `04-Screens-and-UX.md` — screens and functional UX.
+- `05-Data-Model.md` — canonical data.
+- `06-Calculation-Rules.md` — canonical derived-domain/calculation behaviour.
+- `07-API-Specification.md` — API design intent.
+- `08-Future-Scope.md` — deferred/non-current scope.
+
+Do not duplicate these specifications into tickets or Cursor rules.
+
+## Design documentation
+
+- `00_UI-Design-Concept.md` defines the broader visual direction.
+- Component `.visual.md` files define specific signature-component behaviour.
+- `core-visual-component-requirements.md`, `react-ui-library-strategy.md`, and
+  `ui-component-architecture.md` govern cross-component implementation decisions.
+- Material under `GoalStateCompanion/` or `ReferenceItems/` may be exploratory;
+  the active ticket should identify which concept is adopted.
+- If design and core functional scope conflict, flag the conflict rather than silently choosing.
+
+## Dev ticket format
+
+Tickets should be concise and include:
+- Status, Phase, Depends On
+- Related Docs / Design References
+- Objective and user outcome
+- Scope and explicit Out of Scope
+- Likely Files/Areas
+- Technical Tasks
+- Acceptance Criteria
+- Verification
+- Completion Notes when implemented
+
+Tickets reference canonical docs rather than reproducing long visual or calculation specifications.
+When completed, mark criteria, set status to Implemented, and update queue/completion registries.
+
+## Alignment
+
+If code, ticket, API spec, calculations, or design docs drift materially, record and resolve the
+mismatch in the relevant ticket/doc instead of leaving silent divergence.
+
+Do not create unsolicited documentation dumps, speculative architecture docs, or future-scope tickets.
