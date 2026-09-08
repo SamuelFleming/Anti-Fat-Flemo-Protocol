@@ -1,6 +1,6 @@
 # 3001 - Define Character Visual Language
 
-**Status:** Blocked  
+**Status:** Implemented  
 **Phase:** 3  
 **Depends On:** None (Phase 2 complete)
 
@@ -40,4 +40,15 @@ tickets have a stable silhouette and personality to design against instead of re
 - Review doc against charter sections 14, 15, 22 for consistency; no code to run.
 
 ## Completion Notes
-Pending implementation.
+Produced `docs/DesignConcept/GoalStateCompanion/01_Character-Visual-Language.md`. Resolved: a
+single-piece, no-neck, tall-narrow (~1:2.2) rounded "seed" silhouette; simplified anatomy with no
+visible joints/hands (soft-body squash/stretch instead of rigging); a minimal eyes+mouth(+optional
+eyebrows) face system; one dominant matte moss-family base material with small state-coloured
+accents rather than full-body recolour (colour stays reinforcement, not primary meaning); a bounded,
+reversible deformation model tied to temporary conditions, not body-composition/weight change; and
+the charter's personality boundary (DATA → CHARACTER EXPRESSION, never USER → CARE FOR CHARACTER).
+No dimensionality/technology choice was made (left to ticket 3007) — the silhouette is deliberately
+compatible with 2D, 2.5D or 3D treatments. Noted `docs/devTickets/phase2/MVP-FeedbackNotes.md`'s
+"narrow centre column with a ring either side" placement idea as a proportion constraint to respect
+later, without deciding Dashboard layout here (that remains ticket 3011's scope). No code changed;
+no build/test run required for a design-doc-only ticket.

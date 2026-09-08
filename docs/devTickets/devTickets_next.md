@@ -6,7 +6,7 @@ sequenced below as the active queue.
 
 ## Next
 
-1. [3001 - Define Character Visual Language](phase3/3001-define-character-visual-language.md)
+1. [3002 - Define Companion State Model](phase3/3002-define-companion-state-model.md)
 
 ## Phase 1 — Foundations
 
@@ -67,7 +67,7 @@ produce `docs/DesignConcept/GoalStateCompanion/0N_*.md` artefacts only — no ap
 technology choice or implementation begins.
 
 ### Design decisions (no app code)
-1. [3001 - Define Character Visual Language](phase3/3001-define-character-visual-language.md)
+1. [3001 - Define Character Visual Language](phase3/3001-define-character-visual-language.md) — implemented
 2. [3002 - Define Companion State Model](phase3/3002-define-companion-state-model.md) — after 3001
 3. [3003 - Define State Composition Rules](phase3/3003-define-state-composition-rules.md) — after 3002
 4. [3004 - Define Pose and Expression Catalogue](phase3/3004-define-pose-and-expression-catalogue.md) — after 3001 and 3003

@@ -102,6 +102,19 @@ Record a ticket here only after its acceptance criteria and verification are com
   - Notes: no temporary artifacts introduced; OpenAPI reconciled with the Dashboard/Progress
     contracts. Phase 2 MVP scope is complete; no Phase 3 or `GoalStateCompanion` work started.
 
+## Phase 3
+
+- `3001 - Define Character Visual Language` — completed 2026-09-09
+  - Verification: design-doc-only ticket; no build/test run. Reviewed against
+    `GSP-ConceptCharter.md` §14, §15, §22 for consistency.
+  - Notes: produced `docs/DesignConcept/GoalStateCompanion/01_Character-Visual-Language.md`.
+    Decided a tall-narrow, no-neck, no-joint "seed" silhouette; moss-family base material with
+    small state-coloured accents (not full-body recolour); minimal face system; bounded/reversible
+    deformation (never implying body-composition change); charter's DATA→EXPRESSION personality
+    boundary. Left dimensionality/technology open for ticket 3007. Flagged
+    `docs/devTickets/phase2/MVP-FeedbackNotes.md`'s narrow-centre-column placement idea as a
+    proportion constraint without deciding Dashboard layout.
+
 ## Entry Format
 
 - `XXXX - Ticket Name` — completed `YYYY-MM-DD`
