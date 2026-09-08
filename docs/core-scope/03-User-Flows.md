@@ -9,18 +9,18 @@ Allow the user to immediately understand current progress.
 ### Flow
 
 1. User opens the application.
-2. Application loads the Dashboard.
-3. Dashboard retrieves:
+2. Application checks for a valid authenticated session.
+3. If no valid session exists, the user is directed to Login (with access to Register).
+4. After successful authentication, or when a valid session already exists, the application loads the Dashboard.
+5. Dashboard retrieves:
 
    * profile
    * today's meals
    * today's movement
    * latest weight
    * current-week data
-4. Dashboard calculates daily and weekly summaries.
-5. User sees current status immediately.
-
-No login screen is required.
+6. Dashboard calculates daily and weekly summaries.
+7. User sees current status immediately.
 
 ---
 
