@@ -1,6 +1,6 @@
 # 2012 - Implement Progress Aggregation API
 
-**Status:** Blocked  
+**Status:** Implemented  
 **Phase:** 2  
 **Depends On:** 2001
 
@@ -39,4 +39,11 @@ Return historically correct weight, Calories, Move and status data over useful d
 - Run integration tests across ranges, target changes, multiple goals and two users.
 
 ## Completion Notes
-Pending implementation.
+Implemented `GET /api/progress` in `server/src/features/progress/`. Supports `range=7d|30d|goal|all`,
+`goalId=<id>` (specific goal period, ownership-checked) and `startDate`+`endDate` custom ranges.
+Each history row resolves its *historically applicable* goal (most recent goal with `startDate <=`
+that date) for `targetCalories`/`targetMoveKj`, so target changes are never applied retroactively.
+Unrecorded days remain explicit gaps (`caloriesConsumed: 0`, `moveKj`/`weightKg`: `null`) rather than
+being interpolated. `weightEntries` returns only actual entries for the chart. OpenAPI mirrored.
+3 integration tests cover the default range with gaps, historical-target correctness across a
+completed+new goal, and goalId ownership (404 for another user). `typecheck`, `lint`, `test` pass.

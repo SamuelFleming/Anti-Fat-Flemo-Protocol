@@ -1,6 +1,6 @@
 # 2009 - Integrate Dashboard Signature Widgets
 
-**Status:** Blocked  
+**Status:** Implemented  
 **Phase:** 2  
 **Depends On:** 2005, 2006, 2007, 2008
 
@@ -37,4 +37,10 @@ Deliver the complete distinctive Dashboard with coordinated data and motion acro
 - Run client build plus integrated current-day, selected-day, data-update and no-data scenarios.
 
 ## Completion Notes
-Pending implementation.
+Integrated `GoalJourneyTrack`, `DailyTargetGauge` (Calories + Move) and `WeeklyAccountabilityRibbon`
+into `DashboardPage`. Selecting a ribbon day updates `selectedDate`, which refetches the dashboard for
+that date and re-renders the gauges, energy balance, status and meals list for that day; the journey
+track always reflects the live goal/current weight, not the selected day. Added `baselineTdee` and
+`moveKcal` to the `GET /api/dashboard` `today` payload (server-computed, via existing `moveKjToKcal`)
+so `EnergyBalanceCard`'s expanded breakdown does not duplicate the conversion formula client-side;
+mirrored in `server/src/openapi/openapi.ts`.

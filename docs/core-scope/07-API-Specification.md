@@ -230,6 +230,8 @@ Example:
     "caloriesRemaining": 380,
     "moveKj": 1520,
     "moveRemainingKj": 280,
+    "baselineTdee": 2150,
+    "moveKcal": 363,
     "estimatedDeficit": 690,
     "status": "partial"
   },

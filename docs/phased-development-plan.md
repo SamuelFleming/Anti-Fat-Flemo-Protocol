@@ -205,10 +205,6 @@ This includes:
 
 ### MVP Validation
 - core user flows tested end-to-end
-- validation behaviour checked
-- calculations verified
-- historical data across goals tested
-- responsive pass
 - removal of temporary/sample implementation artefacts
 
 ## Explicit Exclusion

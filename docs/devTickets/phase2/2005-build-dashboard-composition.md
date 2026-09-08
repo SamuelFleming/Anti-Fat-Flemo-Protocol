@@ -1,6 +1,6 @@
 # 2005 - Build Dashboard Composition
 
-**Status:** Blocked  
+**Status:** Implemented  
 **Phase:** 2  
 **Depends On:** 2004, 1008
 
@@ -38,4 +38,8 @@ Build the Dashboard's information hierarchy and data flow so users can understan
 - Run client checks and exercise loading, current-day, historical and incomplete states.
 
 ## Completion Notes
-Pending implementation.
+Implemented alongside 2009 in `client/src/features/dashboard/DashboardPage.tsx` using
+`services/dashboardService.ts`. A single `selectedDate` state (default today) drives the goal
+section, both gauges, the energy balance card, status note, recent-meals list and the weekly ribbon.
+Loading/error/no-goal states are explicit; the page composes restrained bordered sections rather than
+a generic equal-card grid.

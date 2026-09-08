@@ -1,6 +1,6 @@
 # 2008 - Implement WeeklyAccountabilityRibbon
 
-**Status:** Blocked  
+**Status:** Implemented  
 **Phase:** 2  
 **Depends On:** 1008, 2001
 
@@ -38,4 +38,15 @@ Present the week as one connected, selectable accountability view without treati
 - Run component checks for each day state, selection, expansion and reduced motion.
 
 ## Completion Notes
-Pending implementation.
+Implemented `client/src/components/accountability/WeeklyAccountabilityRibbon.tsx`. Seven days render
+as one connected sequence (shared background line, focusable `<button>`s) with status distinguished by
+shape as well as colour: filled circle (on-track), half-filled ring (partial), diamond (off-track),
+dashed hollow ring (no data), faint dashed ring + `disabled` (future) — plus a today ring and a
+`layoutId`-animated selection halo that slides between nodes. Click/tap/keyboard focus is the
+canonical interaction (real `<button>`s, `aria-pressed`/`aria-current`, `sr-only` full status text);
+no hover-only behaviour. Weekly summary stats (average Calories/Move, weight change, on/partial/off
+counts) are computed from the same `days` prop. An optional expandable daily trend (Calories/Move
+toggle, small animated SVG bar chart) satisfies the extended-trend requirement. Status calculation and
+Dashboard-wide state stay out of scope — this component is purely prop-driven. 2 smoke tests cover
+rendering all seven day controls with summary stats and disabling future days. `typecheck`, `lint`,
+`test` pass.

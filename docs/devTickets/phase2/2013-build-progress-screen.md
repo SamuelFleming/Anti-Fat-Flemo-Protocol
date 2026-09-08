@@ -1,6 +1,6 @@
 # 2013 - Build Progress Screen
 
-**Status:** Blocked  
+**Status:** Implemented  
 **Phase:** 2  
 **Depends On:** 2006, 2012
 
@@ -38,4 +38,11 @@ Let users inspect longer-term weight and behavioural history without losing goal
 - Run client build and range, accessibility, historical-target and no-data scenarios.
 
 ## Completion Notes
-Pending implementation.
+Implemented `client/src/features/progress/ProgressPage.tsx` with owned SVG chart components
+`client/src/components/charts/{WeightLineChart,MetricBarChart}.tsx` (no new chart library). Range
+control covers 7 Days/30 Days/Goal/All Time via `services/progressService.ts`. Expanded
+`GoalJourneyTrack` uses the active goal plus `weightEntries` history. Calories/Move bars plot each
+day's historically-correct target (from the progress API) as a dashed reference line rather than
+applying today's target retroactively. Charts are decorative SVG with hover titles; exact per-day
+values are always available via the accessible history table beneath them, satisfying
+pointer/keyboard/touch access without per-point interactive tooltips.

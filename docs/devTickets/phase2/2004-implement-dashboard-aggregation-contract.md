@@ -1,6 +1,6 @@
 # 2004 - Implement Dashboard Aggregation Contract
 
-**Status:** Blocked  
+**Status:** Implemented  
 **Phase:** 2  
 **Depends On:** 2001
 
@@ -38,4 +38,12 @@ Return one coherent, trustworthy data contract for the primary daily Dashboard.
 - Run Dashboard API integration, calculation fixture and ownership tests.
 
 ## Completion Notes
-Pending implementation.
+Implemented `GET /api/dashboard?date=` in `server/src/features/dashboard/`. Composes the current
+active goal, selected-day meals/Move/status, current weight/goal progress, and a Monday-Sunday week
+(with a `days[]` array carrying per-day calories/Move/status for the ribbon). Dashboard always uses
+the *current* active goal's targets (selecting a historical day only changes which day's recorded
+meals/Move/weight are shown, not which goal's targets apply — full historical-target resolution
+across goal changes is handled by `/api/progress`, ticket 2012). No active goal yields explicit
+`null`s rather than fabricated targets/status. OpenAPI mirrored in `server/src/openapi/openapi.ts`.
+7 integration tests cover no-goal shape, full composition, historical-day meal scoping and cross-user
+isolation. `typecheck`, `lint`, `test` pass.

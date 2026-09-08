@@ -1,9 +1,17 @@
+import { Navigate, useLocation } from 'react-router-dom'
 import { Button } from '../components/ui/Button'
 import { useAuth } from '../contexts/AuthContext'
+import { useProfile } from '../contexts/ProfileContext'
 import { AppShell } from './AppShell'
 
 export function AuthenticatedShell() {
   const { user, logout } = useAuth()
+  const { isLoading, isSetupComplete } = useProfile()
+  const location = useLocation()
+
+  if (!isLoading && !isSetupComplete && location.pathname !== '/settings') {
+    return <Navigate to="/settings" replace />
+  }
 
   return (
     <AppShell

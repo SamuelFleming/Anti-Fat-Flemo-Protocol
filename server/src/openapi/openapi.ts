@@ -422,6 +422,51 @@ export const openApiDocument = {
         },
       },
     },
+    "/dashboard": {
+      get: {
+        summary:
+          "Composed Dashboard contract for a selected day (default today) and its calendar week",
+        security: [{ bearerAuth: [] }],
+        parameters: [
+          {
+            name: "date",
+            in: "query",
+            required: false,
+            description: "Selected calendar day; defaults to today",
+            schema: { type: "string", format: "date" },
+          },
+        ],
+        responses: {
+          "200": {
+            description: "Dashboard contract",
+            content: { "application/json": { schema: { $ref: "#/components/schemas/DashboardResponse" } } },
+          },
+          "400": { description: "Validation failed", content: { "application/json": { schema: { $ref: "#/components/schemas/Error" } } } },
+          "401": { description: "Not authenticated", content: { "application/json": { schema: { $ref: "#/components/schemas/Error" } } } },
+        },
+      },
+    },
+    "/progress": {
+      get: {
+        summary: "Historical Progress data for a range, goal period or custom date span",
+        security: [{ bearerAuth: [] }],
+        parameters: [
+          { name: "range", in: "query", required: false, schema: { type: "string", enum: ["7d", "30d", "goal", "all"] } },
+          { name: "goalId", in: "query", required: false, schema: { type: "string" } },
+          { name: "startDate", in: "query", required: false, schema: { type: "string", format: "date" } },
+          { name: "endDate", in: "query", required: false, schema: { type: "string", format: "date" } },
+        ],
+        responses: {
+          "200": {
+            description: "Progress contract",
+            content: { "application/json": { schema: { $ref: "#/components/schemas/ProgressResponse" } } },
+          },
+          "400": { description: "Validation failed, or no active goal for range=goal", content: { "application/json": { schema: { $ref: "#/components/schemas/Error" } } } },
+          "401": { description: "Not authenticated", content: { "application/json": { schema: { $ref: "#/components/schemas/Error" } } } },
+          "404": { description: "goalId not found", content: { "application/json": { schema: { $ref: "#/components/schemas/Error" } } } },
+        },
+      },
+    },
   },
   components: {
     securitySchemes: {
@@ -590,6 +635,135 @@ export const openApiDocument = {
           updatedAt: { type: "string", format: "date-time" },
         },
         required: ["id", "userId", "date", "weightKg"],
+      },
+      DailyStatus: { type: "string", enum: ["on-track", "partial", "off-track", "awaiting-data"] },
+      WeeklyStatus: { type: "string", enum: ["on-track", "mixed", "off-track", "awaiting-data"] },
+      DaysRemaining: {
+        type: "object",
+        properties: {
+          status: { type: "string", enum: ["remaining", "passed", "no-target-date"] },
+          days: { type: "number" },
+        },
+        required: ["status"],
+      },
+      DashboardDay: {
+        type: "object",
+        properties: {
+          date: { type: "string", format: "date" },
+          isToday: { type: "boolean" },
+          isFuture: { type: "boolean" },
+          isSelected: { type: "boolean" },
+          caloriesConsumed: { type: "number" },
+          moveKj: { type: "number", nullable: true },
+          status: { anyOf: [{ $ref: "#/components/schemas/DailyStatus" }, { type: "null" }] },
+        },
+        required: ["date", "isToday", "isFuture", "isSelected", "caloriesConsumed", "moveKj", "status"],
+      },
+      DashboardResponse: {
+        type: "object",
+        properties: {
+          date: { type: "string", format: "date" },
+          activeGoal: { anyOf: [{ $ref: "#/components/schemas/Goal" }, { type: "null" }] },
+          today: {
+            type: "object",
+            properties: {
+              date: { type: "string", format: "date" },
+              caloriesConsumed: { type: "number" },
+              targetCalories: { type: "number", nullable: true },
+              caloriesRemaining: { type: "number", nullable: true },
+              moveKj: { type: "number", nullable: true },
+              targetMoveKj: { type: "number", nullable: true },
+              moveRemainingKj: { type: "number", nullable: true },
+              baselineTdee: { type: "number", nullable: true },
+              moveKcal: { type: "number", nullable: true },
+              estimatedDeficit: { type: "number", nullable: true },
+              status: { anyOf: [{ $ref: "#/components/schemas/DailyStatus" }, { type: "null" }] },
+              meals: { type: "array", items: { $ref: "#/components/schemas/MealEntry" } },
+            },
+          },
+          weight: {
+            type: "object",
+            properties: {
+              currentWeightKg: { type: "number", nullable: true },
+              startingWeightKg: { type: "number", nullable: true },
+              targetWeightKg: { type: "number", nullable: true },
+              weightLostKg: { type: "number", nullable: true },
+              remainingKg: { type: "number", nullable: true },
+              progressPercent: { type: "number", nullable: true },
+              daysRemaining: { anyOf: [{ $ref: "#/components/schemas/DaysRemaining" }, { type: "null" }] },
+            },
+          },
+          week: {
+            type: "object",
+            properties: {
+              startDate: { type: "string", format: "date" },
+              endDate: { type: "string", format: "date" },
+              totalCalories: { type: "number" },
+              averageCalories: { type: "number", nullable: true },
+              totalMoveKj: { type: "number" },
+              averageMoveKj: { type: "number", nullable: true },
+              estimatedDeficit: { type: "number", nullable: true },
+              weightChangeKg: { type: "number", nullable: true },
+              status: { anyOf: [{ $ref: "#/components/schemas/WeeklyStatus" }, { type: "null" }] },
+              days: { type: "array", items: { $ref: "#/components/schemas/DashboardDay" } },
+            },
+          },
+        },
+        required: ["date", "activeGoal", "today", "weight", "week"],
+      },
+      ProgressHistoryRow: {
+        type: "object",
+        properties: {
+          date: { type: "string", format: "date" },
+          caloriesConsumed: { type: "number" },
+          targetCalories: { type: "number", nullable: true },
+          moveKj: { type: "number", nullable: true },
+          targetMoveKj: { type: "number", nullable: true },
+          estimatedDeficit: { type: "number", nullable: true },
+          status: { anyOf: [{ $ref: "#/components/schemas/DailyStatus" }, { type: "null" }] },
+          weightKg: { type: "number", nullable: true },
+          goalId: { type: "string", nullable: true },
+        },
+        required: ["date", "caloriesConsumed", "targetCalories", "moveKj", "targetMoveKj", "estimatedDeficit", "status", "weightKg", "goalId"],
+      },
+      ProgressResponse: {
+        type: "object",
+        properties: {
+          range: {
+            type: "object",
+            properties: {
+              type: { type: "string", enum: ["7d", "30d", "goal", "all", "custom"] },
+              startDate: { type: "string", format: "date" },
+              endDate: { type: "string", format: "date" },
+              goalId: { type: "string", nullable: true },
+            },
+            required: ["type", "startDate", "endDate", "goalId"],
+          },
+          goals: { type: "array", items: { $ref: "#/components/schemas/Goal" } },
+          history: { type: "array", items: { $ref: "#/components/schemas/ProgressHistoryRow" } },
+          weightEntries: {
+            type: "array",
+            items: {
+              type: "object",
+              properties: { date: { type: "string", format: "date" }, weightKg: { type: "number" } },
+              required: ["date", "weightKg"],
+            },
+          },
+          summary: {
+            type: "object",
+            properties: {
+              loggedDayCount: { type: "number" },
+              totalDayCount: { type: "number" },
+              averageCalories: { type: "number", nullable: true },
+              averageMoveKj: { type: "number", nullable: true },
+              totalEstimatedDeficit: { type: "number", nullable: true },
+              startWeightKg: { type: "number", nullable: true },
+              endWeightKg: { type: "number", nullable: true },
+              weightChangeKg: { type: "number", nullable: true },
+            },
+          },
+        },
+        required: ["range", "goals", "history", "weightEntries", "summary"],
       },
     },
   },

@@ -11,6 +11,8 @@ import goalRouter from "./features/goals/goal.routes.js";
 import mealRouter from "./features/meals/meal.routes.js";
 import dailyLogRouter from "./features/dailyLogs/dailyLog.routes.js";
 import weightRouter from "./features/weights/weight.routes.js";
+import dashboardRouter from "./features/dashboard/dashboard.routes.js";
+import progressRouter from "./features/progress/progress.routes.js";
 
 /**
  * Builds the Express application without starting a listener or connecting
@@ -42,6 +44,8 @@ export function createApp(): Express {
   app.use("/api/meals", mealRouter);
   app.use("/api/daily-logs", dailyLogRouter);
   app.use("/api/weights", weightRouter);
+  app.use("/api/dashboard", dashboardRouter);
+  app.use("/api/progress", progressRouter);
 
   app.use(notFoundHandler);
   app.use(errorHandler);

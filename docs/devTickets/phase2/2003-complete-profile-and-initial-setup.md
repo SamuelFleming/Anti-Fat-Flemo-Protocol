@@ -1,6 +1,6 @@
 # 2003 - Complete Profile and Initial Setup
 
-**Status:** Blocked  
+**Status:** Implemented  
 **Phase:** 2  
 **Depends On:** 1006, 1008, 1009
 
@@ -38,4 +38,7 @@ Guide a new user to the minimum usable configuration and let them maintain profi
 - Run client checks and first-run plus returning-user profile flows.
 
 ## Completion Notes
-Pending implementation.
+Implemented `client/src/features/settings/SettingsPage.tsx`, `services/profileService.ts` and
+`contexts/ProfileContext.tsx`. Settings edits height and estimated baseline TDEE (read-only account
+info, fixed unit labels). `AuthenticatedShell` redirects to `/settings` until the profile is complete,
+then to Dashboard; goal creation stays a separate step handled by 2002.

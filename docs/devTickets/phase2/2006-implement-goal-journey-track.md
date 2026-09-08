@@ -1,6 +1,6 @@
 # 2006 - Implement GoalJourneyTrack
 
-**Status:** Blocked  
+**Status:** Implemented  
 **Phase:** 2  
 **Depends On:** 1008
 
@@ -37,4 +37,13 @@ Make start-to-current-to-goal progress legible as a journey without judging norm
 - Run component checks across default, regression, beyond-goal, history and reduced-motion fixtures.
 
 ## Completion Notes
-Pending implementation.
+Implemented `client/src/components/goals/GoalJourneyTrack.tsx`. Prop-driven, no API access. Straight
+track with distinct travelled (moss) vs future (quiet) path; current marker computed via a signed
+`t` percentage across [start, target] with a compressed (`sqrt`-scaled), bounded overflow region for
+regression/overshoot rather than clamping. Missing current weight renders an explicit "No weight yet"
+state instead of a fabricated position. Motion uses `initial` (start position) vs `animate` (current
+position) so fresh mounts sweep from start while later prop updates transition from whatever is
+currently displayed; `useReducedMotion` disables transitions. Optional expanded history view draws a
+small SVG line chart with a dashed target reference line, revealed via an accessible toggle button
+(click/focus, not hover-only). 5 smoke tests cover normal/missing/regression/overshoot/history-toggle
+states. `typecheck`, `lint`, `test` pass.

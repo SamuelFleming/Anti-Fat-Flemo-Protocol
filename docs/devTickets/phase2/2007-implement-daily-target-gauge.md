@@ -1,6 +1,6 @@
 # 2007 - Implement DailyTargetGauge
 
-**Status:** Blocked  
+**Status:** Implemented  
 **Phase:** 2  
 **Depends On:** 1008
 
@@ -37,4 +37,12 @@ Show Calories or Move against a target through one readable instrument that rema
 - Run component checks for zero, normal, target, overrun, missing, metric and reduced-motion states.
 
 ## Completion Notes
-Pending implementation.
+Implemented `client/src/components/metrics/DailyTargetGauge.tsx` (+ shared `arc.ts` polar-math
+helper) as one implementation used for both Calories (coral) and Move (lavender) via a `metric` prop.
+~300° SVG arc with a 60° bottom gap; progress and a separate bounded overrun arc are each driven by a
+`useMotionValue` animated with `animate()`, so mount sweeps from zero while later value/target changes
+transition from whatever is currently displayed (never resets to zero) and `useReducedMotion` disables
+transitions. Overrun extends past the target endpoint with a distinct short ink-coloured arc rather
+than wrapping for another lap; exact numbers stay textual. Missing data renders a dashed neutral arc
+and "—"/"No data" instead of zero. `default` and `compact` variants share the same implementation.
+4 smoke tests cover normal/missing/overrun/compact states. `typecheck`, `lint`, `test` pass.

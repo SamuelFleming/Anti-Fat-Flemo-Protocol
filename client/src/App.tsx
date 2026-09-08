@@ -1,10 +1,13 @@
 import { AuthProvider } from './contexts/AuthContext'
+import { ProfileProvider } from './contexts/ProfileContext'
 import { AppRouter } from './app/router'
 
 function App() {
   return (
     <AuthProvider>
-      <AppRouter />
+      <ProfileProvider>
+        <AppRouter />
+      </ProfileProvider>
     </AuthProvider>
   )
 }

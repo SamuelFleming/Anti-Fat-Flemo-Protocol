@@ -1,6 +1,6 @@
 # 2001 - Implement Calculation Layer
 
-**Status:** Blocked  
+**Status:** Implemented  
 **Phase:** 2  
 **Depends On:** 1006, 1007
 
@@ -37,4 +37,11 @@ Produce consistent, transparent daily, weekly and goal-derived values everywhere
 - Run calculation tests, type-check and lint with documented example values.
 
 ## Completion Notes
-Pending implementation.
+Implemented as `server/src/domain/{energy,weight,status,thresholds}.ts` (barrel: `domain/index.ts`).
+Every function is pure and takes plain values, so dashboard/progress services compose them without
+re-deriving formulas. Missing baseline TDEE or Move yields `null` (not zero/negative) for expenditure
+and deficit. Daily status treats unrecorded Move as `awaiting-data` unless calories alone already
+breach the off-track threshold; weekly status excludes `awaiting-data` days before checking majority
+thresholds. Thresholds centralised in `thresholds.ts`. 31 unit tests in
+`server/tests/domain/calculations.test.ts` cover boundary, over-target, regression and missing-data
+cases for every rule in `06-Calculation-Rules.md`. `typecheck`, `lint`, `test` pass.

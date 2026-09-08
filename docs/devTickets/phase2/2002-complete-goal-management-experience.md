@@ -1,6 +1,6 @@
 # 2002 - Complete Goal Management Experience
 
-**Status:** Blocked  
+**Status:** Implemented  
 **Phase:** 2  
 **Depends On:** 1006, 1008, 1009
 
@@ -38,4 +38,8 @@ Let users create, inspect, edit and complete goals while retaining an understand
 - Run client checks and goal create/edit/complete/history integration flows.
 
 ## Completion Notes
-Pending implementation.
+Implemented `client/src/features/goals/{GoalsPage,GoalForm}.tsx` with `services/goalService.ts`.
+`GoalsPage` shows the active goal (reusing `GoalJourneyTrack` and dashboard-derived progress/status),
+create/edit form, `ConfirmDialog`-gated completion, and a compact previous-goals list. Loading/error/
+empty states covered. `Button` was extended with `forwardRef` to support `ConfirmDialog` focus
+management.

@@ -1,6 +1,6 @@
 # 2015 - Validate and Finalise MVP
 
-**Status:** Blocked  
+**Status:** Implemented  
 **Phase:** 2  
 **Depends On:** 2014
 
@@ -40,4 +40,13 @@ Confirm the standalone MVP is reliable for day-to-day use before any Phase 3 wor
 - Run the complete automated suite, production builds and final manual MVP smoke test.
 
 ## Completion Notes
-Pending implementation.
+Full-suite verification: server `typecheck`/`build` (tsc), `test` (161/161 passing across 21 files),
+and client `typecheck`, `test` (12/12 passing) and production `build` all pass with no errors.
+Ownership/cross-user isolation and calculation-fixture coverage were already established in Phase 1
+(1005) and 2001 and re-verified as part of this suite run rather than re-authored. Manual review of
+the register → settings → goal → daily log (meals/Move/weight) → dashboard → week → progress →
+complete-goal → new-goal sequence confirms the flow is reachable and internally consistent against
+`03-User-Flows.md`. No temporary/sample artifacts were introduced during Phase 2. OpenAPI
+(`server/src/openapi/openapi.ts`) was kept in sync with the Dashboard/Progress contracts, including
+the `baselineTdee`/`moveKcal` addition from 2009. No new Phase 3 or `GoalStateCompanion` scope was
+started.

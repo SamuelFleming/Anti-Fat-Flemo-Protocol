@@ -38,3 +38,35 @@ export function toCalendarDate(input: string | Date): Date {
 export function formatCalendarDate(date: Date): string {
   return date.toISOString().slice(0, 10);
 }
+
+/** The current calendar day at UTC midnight (see `05-Data-Model.md` #11). */
+export function todayCalendarDate(): Date {
+  return toCalendarDate(new Date());
+}
+
+/** Monday (UTC) of the calendar week containing `date`. */
+export function getWeekStart(date: Date): Date {
+  const day = date.getUTCDay();
+  const diffToMonday = day === 0 ? -6 : 1 - day;
+  const start = new Date(date);
+  start.setUTCDate(date.getUTCDate() + diffToMonday);
+  return start;
+}
+
+/** Sunday (UTC) of the calendar week containing `date`. */
+export function getWeekEnd(date: Date): Date {
+  const end = getWeekStart(date);
+  end.setUTCDate(end.getUTCDate() + 6);
+  return end;
+}
+
+/** Every calendar date from `start` to `end` inclusive. */
+export function enumerateCalendarDates(start: Date, end: Date): Date[] {
+  const dates: Date[] = [];
+  const cursor = new Date(start);
+  while (cursor.getTime() <= end.getTime()) {
+    dates.push(new Date(cursor));
+    cursor.setUTCDate(cursor.getUTCDate() + 1);
+  }
+  return dates;
+}
