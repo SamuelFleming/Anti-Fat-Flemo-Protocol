@@ -14,8 +14,8 @@ systems add interpretation and personality rather than replacing the underlying 
 
 | Layer | Technology |
 |---|---|
-| Frontend | React 19, Vite, React Router, Tailwind CSS 4 |
-| Backend | Node.js, Express 5, JWT auth |
+| Frontend | React 19, TypeScript, Vite, React Router, Tailwind CSS 4 |
+| Backend | Node.js, TypeScript, Express 5, JWT auth |
 | Database | MongoDB, Mongoose |
 
 Use the same general MERN implementation patterns as CareerContext unless a ticket explicitly changes them.
