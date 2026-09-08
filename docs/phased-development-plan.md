@@ -239,6 +239,20 @@ Experimentally implement and integrate the GoalStateCompanion as a distinct visu
 
 This phase is intentionally isolated because 3D character rendering and animation are new technical territory and should not threaten MVP delivery.
 
+## Testing Approach
+
+Phase 3 is experimental and visual/animation-heavy by nature, so favour lightweight verification over
+exhaustive automated coverage:
+
+- Prefer manual/visual verification and a small number of targeted smoke tests over broad unit/
+  integration suites for rendering, animation, and state-transition behaviour.
+- Reserve automated tests for the companion state contract (pure state → visual-state mapping logic),
+  since that logic is cheap to test and easy to regress.
+- Do not block ticket completion on exhaustive test coverage, cross-browser matrices, or perf
+  benchmarking beyond a basic sanity check; deeper hardening can be deferred as noted follow-up work.
+- Phase 1/2 testing conventions still apply to any non-companion code touched in this phase (e.g.
+  shared services, contracts).
+
 ## Included Scope
 
 ### Technical Spike
