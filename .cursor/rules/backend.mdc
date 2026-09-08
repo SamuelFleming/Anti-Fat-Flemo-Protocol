@@ -1,0 +1,60 @@
+---
+description: Anti-Fat-Flemo backend — Express, Mongoose, JWT, calculations, API contract
+globs: server/**/*
+alwaysApply: false
+---
+
+# Backend Rules
+
+Sources: `05-Data-Model.md`, `06-Calculation-Rules.md`, `07-API-Specification.md`,
+the active dev ticket, and current implemented code.
+
+## Stack and architecture
+
+- Node.js, Express 5, MongoDB/Mongoose, JWT auth, bcrypt.
+- Preserve the CareerContext pattern: **Route → Controller → Service → Model**.
+- Keep controllers thin: HTTP params, request/response mapping, status codes.
+- Keep services responsible for business logic, ownership-aware access, and calculations.
+- Keep persistence concerns in Mongoose models.
+- Reuse existing middleware/utilities before adding parallel patterns.
+
+## Auth and ownership
+
+- Protect user-owned routes with the established JWT middleware.
+- Derive the authenticated user id from the verified token, never a request body field.
+- Scope reads and mutations to the authenticated owner.
+- Validate identifiers and request bodies consistently with existing middleware.
+
+## Data and calculations
+
+- Use canonical field names/types from `05-Data-Model.md`.
+- `06-Calculation-Rules.md` is authoritative for energy, target, weight/progress,
+  accountability, and other derived-domain behaviour.
+- Do not invent, simplify, or independently re-derive formulas.
+- Centralise reusable calculations in domain services/utilities so frontend and controllers
+  do not become competing calculation engines.
+- Preserve enough source data to explain derived values where the product requires transparency.
+- Missing data is unknown; do not fabricate zero-value health events unless the contract defines zero.
+
+## API contract
+
+- Use `/api` as the base path.
+- Endpoint paths, methods, request fields, response shapes, and status behaviour must follow
+  `07-API-Specification.md` unless the active ticket explicitly updates the contract.
+- Prefer consistent response envelopes and pagination conventions already established in the repo.
+- Do not create model-driven endpoints without a screen/flow/ticket requirement.
+
+## OpenAPI
+
+- `server/src/openapi/` mirrors implemented HTTP behaviour only.
+- Any backend contract change must update the affected OpenAPI path/schema in the same ticket.
+- Prefer targeted OpenAPI edits; do not load or rewrite the entire specification unnecessarily.
+- Run the repo's OpenAPI validation command after API changes when available.
+
+## Do not
+
+- Put business/calculation logic in route files.
+- Trust client-supplied ownership identifiers.
+- Duplicate calculations across endpoints.
+- Add frameworks or architectural layers without explicit approval.
+- Ship API behaviour that silently disagrees with `07-API-Specification.md`.

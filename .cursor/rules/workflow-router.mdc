@@ -1,0 +1,24 @@
+---
+description: Workflow router for Anti-Fat-Flemo development tasks
+alwaysApply: true
+---
+
+# Workflow Router
+
+Before editing files, classify the task into the narrowest suitable mode:
+
+- **Plan Large Feature** — broad feature, phase, low-spec requirement, or multi-ticket work.
+- **Implement Dev Ticket** — normal ticket-scoped application development.
+- **Implement UI Concept** — signature component or visual/interaction implementation/refinement.
+- **Small Change** — tiny, obvious, isolated, low-risk edit.
+- **Audit / Diagnose** — bug, failing build, regression, drift, or uncertain behaviour.
+
+If the user explicitly names a mode, follow it.
+A repo-local ticket normally implies **Implement Dev Ticket**.
+A referenced `.visual.md` or signature visual component normally implies **Implement UI Concept**.
+Errors and regressions imply **Audit / Diagnose** before modification.
+
+When multiple modes plausibly apply, choose the narrowest safe mode and state the choice.
+This rule only selects workflow; frontend, backend, and documentation rules still apply.
+
+Do not run git operations unless explicitly requested.

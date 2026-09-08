@@ -1,6 +1,8 @@
-# Anti-Fat-Flemo — React UI Library Strategy
+# React UI Library Strategy
 
-**Status:** Preliminary Recommendation
+**Status:** Implementation stack only. Read when adding or choosing a UI/animation library — not during ordinary visual work.
+
+Visual form, palette, and signature behaviour: `00_UI-Design-Concept.md` and the matching `.visual.md`.
 
 ---
 

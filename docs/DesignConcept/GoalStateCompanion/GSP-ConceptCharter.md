@@ -2,7 +2,7 @@
 
 ## Status
 
-**Working conceptual specification — v0.2**
+**Deferred / exploratory — v0.2.** Do not treat this as MVP or dashboard implementation scope. Read only if the active ticket adopts `GoalStateCompanion`.
 
 This document establishes the purpose, design prin
 

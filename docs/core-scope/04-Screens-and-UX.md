@@ -52,64 +52,25 @@ The Dashboard should be the most visually distinctive screen.
 
 ## 3.1 Goal Journey
 
-Rather than a standard text-only card, present:
+Present start → current → goal weight, e.g. `82.0 kg → 80.7 kg → 76.0 kg`.
 
-`82.0 kg → 80.7 kg → 76.0 kg`
-
-using a visual progress path.
-
-Potential treatment:
-
-* curved or horizontal track
-* start marker
-* animated current marker
-* target marker
-* progress percentage
-
-When a new weight is recorded, the current marker may animate to its new position.
+Visual: `GoalJourneyTrack` (`docs/DesignConcept/01_GoalJourneyTrack.visual.md`).
 
 ---
 
-## 3.2 Calorie Widget
+## 3.2 Calories
 
-Preferred concept:
+Display `1,420 / 1,800 kcal` (current / target), remaining or over-target, and missing data as unknown.
 
-**Calorie Orbit / Energy Ring**
-
-Display:
-
-`1,420 / 1,800 kcal`
-
-with a radial or arc-based indicator.
-
-Behaviour:
-
-* arc grows to current value on load
-* arc transitions smoothly when a meal is added
-* central value counts toward the new total
-* exceeding target remains legible without overly punitive styling
-
-Expanded state can show meal contribution breakdown.
+Visual: `DailyTargetGauge` (`docs/DesignConcept/02_DailyTargetGauge.visual.md`). Calories and Move are independent instances of the same component.
 
 ---
 
-## 3.3 Move Widget
+## 3.3 Move
 
-Use a related visual system so calories and activity feel connected but distinct.
+Display `1,620 / 1,800 kJ` with the same gauge contract as Calories, distinct metric colour.
 
-Possible treatment:
-
-**Move Arc / Pulse Meter**
-
-Display:
-
-`1,620 / 1,800 kJ`
-
-Behaviour:
-
-* fills as Move increases
-* subtle completion animation at target
-* no continuous motion once settled
+Visual: `DailyTargetGauge`.
 
 ---
 
@@ -129,7 +90,7 @@ Selectable expanded state:
 
 `Estimated      710 kcal deficit`
 
-Expansion should animate spatially from the compact widget where practical.
+Expansion should animate spatially from the compact widget where practical. Labelled as an estimate. Supporting widget — not a fourth signature spec.
 
 ---
 
@@ -152,19 +113,9 @@ Avoid aggressive red/green success-failure language.
 
 Visualise the week as a sequence rather than only summary numbers.
 
-Possible concept:
+Visual: `WeeklyAccountabilityRibbon` (`docs/DesignConcept/03_WeeklyAccountabilityRibbon.visual.md`).
 
-**Seven-Day Ribbon**
-
-Each day displays a small state marker containing:
-
-* adherence status
-* calorie indication
-* Move completion
-
-Hovering/selecting a day reveals detail.
-
-The weekly component should make patterns visually apparent.
+Selecting a day updates other day-aware dashboard widgets. Domain statuses remain those in `02-Core-Scope.md` (On Track / Partial / Off Track / Awaiting data).
 
 ---
 
@@ -239,13 +190,7 @@ Use visual continuity with the Dashboard Move widget.
 
 ## 6.4 Goal Progress
 
-Show overall movement from goal start to current state.
-
-Potential forms:
-
-* trajectory curve
-* stepped timeline
-* progress ribbon
+Show overall movement from goal start to current state using `GoalJourneyTrack` (expanded variant). Do not substitute a generic progress bar.
 
 ---
 
@@ -301,57 +246,22 @@ A restrained visual element based on the application's progress motif may appear
 
 # 9. Visual Design Direction
 
-The app should avoid feeling like:
+Avoid MyFitnessPal, Bootstrap-admin, and generic SaaS-dashboard clones.
 
-* MyFitnessPal clone
-* generic Bootstrap admin panel
-* generic SaaS analytics dashboard
-
-Potential themes to explore separately:
-
-### A. Kinetic Minimalism
-
-Clean neutral surfaces combined with flowing progress arcs and motion.
-
-### B. Instrument Panel
-
-Metrics behave like refined gauges without becoming automotive or overly technical.
-
-### C. Living Data
-
-Charts, values and progress surfaces appear to grow and settle as new information arrives.
-
-### D. Journey
-
-Weight and goals are represented spatially as movement from one state toward another.
-
-The final theme may combine aspects of these.
+Visual language, palette, and motion: `docs/DesignConcept/00_UI-Design-Concept.md`.
+Signature widgets: the matching `.visual.md` files. Do not explore alternate theme names or metaphors here.
 
 ---
 
 # 10. Motion System
 
-Use motion deliberately.
+Defined in `docs/DesignConcept/00_UI-Design-Concept.md`.
 
-### Entry
+UX constraints that remain here:
 
-Widgets may softly reveal or grow into their state.
-
-### Data Change
-
-Values interpolate from previous state to new state.
-
-### Navigation
-
-Page transitions may use subtle fades or positional continuity.
-
-### Expansion
-
-Expandable widgets should visually originate from their compact location.
-
-### Completion
-
-Target completion may receive a short visual response.
+* animations never block data entry
+* expandable widgets should originate from their compact location where practical
+* missing data is explicit; estimates are labelled
 
 ---
 

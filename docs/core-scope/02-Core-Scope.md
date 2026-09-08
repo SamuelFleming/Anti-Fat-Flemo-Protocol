@@ -428,98 +428,29 @@ Display:
 
 # 14. Visual and Interaction Requirements
 
-Core Dashboard widgets should not be implemented purely as stock rectangular statistic cards where a more expressive visual treatment is practical.
+Do not implement Dashboard widgets as stock statistic cards where a purpose-built treatment exists.
 
-The visual system should explore purpose-built progress components.
+Canonical visuals live in `docs/DesignConcept/`. Functional requirements here; form, tokens, and motion there.
 
-Candidate MVP components include:
+MVP signature widgets:
 
-### Animated Calorie Ring
+- `GoalJourneyTrack` — start / current / target weight as a journey (`01_GoalJourneyTrack.visual.md`)
+- `DailyTargetGauge` — Calories and Move vs daily target (`02_DailyTargetGauge.visual.md`)
+- `WeeklyAccountabilityRibbon` — connected week + summaries (`03_WeeklyAccountabilityRibbon.visual.md`)
 
-A circular or partial-arc indicator that fills toward the daily target.
+Supporting:
 
-When the value changes, the arc should animate smoothly to its new position.
+- estimated energy balance as an expandable, labelled estimate
+- numeric values that may interpolate on change
+- trend graphs that draw in on first view
 
----
-
-### Move Energy Arc
-
-A visually related but distinct indicator for Move energy.
-
-The component may visually complete, pulse or settle when the goal is reached.
-
----
-
-### Weight Journey
-
-A horizontal or curved progression between:
-
-`Starting Weight → Current Weight → Target Weight`
-
-The current position may animate when a new weight is recorded.
-
----
-
-### Growing Trend Graph
-
-Graph lines should draw or grow into their plotted positions when first loaded or when switching date ranges.
-
-Animations should remain brief.
-
----
-
-### Animated Metric Values
-
-When calorie or Move totals change, numeric values may transition smoothly rather than instantly replacing text.
-
----
-
-### Expandable Metric Widgets
-
-A compact Dashboard component may expand into additional context when selected.
-
-Example:
-
-`Estimated deficit: ~720 kcal`
-
-expands to show:
-
-* baseline expenditure
-* Move conversion
-* food intake
-* calculation
-
----
-
-### Goal Completion State
-
-When a meaningful target is reached, the UI may provide subtle feedback such as:
-
-* progress arc completion
-* brief glow
-* checkmark transition
-* restrained celebratory motion
-
-This should not resemble excessive gamification.
-
----
+Do not invent alternate metaphors (orbit, pulse meter, curved-or-horizontal track, theme A–D). If a visual is unspecified, follow `00_UI-Design-Concept.md` design freedom.
 
 # 15. Motion Principles
 
-Animation must:
+Motion rules are defined in `docs/DesignConcept/00_UI-Design-Concept.md`.
 
-* communicate change
-* help establish spatial relationships
-* reinforce progress
-* remain performant
-* respect reduced-motion preferences
-
-Animation must not:
-
-* block interaction
-* delay important information
-* continuously distract
-* make routine data entry feel theatrical
+Functionally: animation must communicate change, remain performant, respect reduced-motion, and never block data entry.
 
 ---
 

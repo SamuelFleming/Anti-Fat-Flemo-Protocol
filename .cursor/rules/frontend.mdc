@@ -1,0 +1,58 @@
+---
+description: Anti-Fat-Flemo frontend — React, Vite, Router, Tailwind, UX fidelity
+globs: client/**/*
+alwaysApply: false
+---
+
+# Frontend Rules
+
+Sources: `04-Screens-and-UX.md`, `07-API-Specification.md`,
+`docs/DesignConcept/00_UI-Design-Concept.md` plus the matching `.visual.md`,
+and the active dev ticket. Do not preload the rest of DesignConcept.
+
+## Stack and structure
+
+- React 19, Vite, React Router, Tailwind CSS 4, ESM.
+- Keep the CareerContext-style structure:
+  `app/`, `components/`, `features/`, `services/`, `contexts/`, `styles/`, `utils/`.
+- Screens belong in `features/<domain>/`; colocate feature-specific components.
+- Reusable primitives belong in `components/ui/`.
+- Signature visuals should have clear component boundaries rather than living inside page JSX.
+- Use feature/domain services for HTTP; do not call `fetch` directly from presentational components.
+- Keep presentational components prop-driven and API-agnostic where practical.
+
+## State and data
+
+- Handle loading, error, empty/no-data, and success states explicitly.
+- Prefer local/feature state before adding global state libraries.
+- Use a shared selected-day/context abstraction when multiple dashboard components represent the same day.
+- Historical views must not silently read today's live values.
+- Missing data means unknown; do not visually infer failure.
+- Do not duplicate formulas from `06-Calculation-Rules.md` in arbitrary components.
+
+## UX and visual implementation
+
+- This project intentionally avoids generic card-heavy SaaS/fitness-dashboard styling.
+- Visual entry point: `docs/DesignConcept/00_UI-Design-Concept.md`. Then only the matching `.visual.md`.
+- Do not load `core-visual-component-requirements.md`, `ui-component-architecture.md`, or
+  `react-ui-library-strategy.md` unless placing files or choosing a library.
+- Preserve `GoalJourneyTrack`, `DailyTargetGauge`, and `WeeklyAccountabilityRibbon`.
+  Do not genericise them. Do not implement `GoalStateCompanion` unless the ticket adopts it.
+- Animation should explain state/change, not exist as decoration.
+- Avoid page-wide simultaneous animation; prefer local transitions driven by changed data.
+- Respect `prefers-reduced-motion`; never make animation or colour the sole carrier of meaning.
+- Keep numerical/semantic information available even when a visual metaphor represents it.
+
+## Integration
+
+- API calls and response shapes must match `07-API-Specification.md` and implemented backend behaviour.
+- Reuse existing primitives/utilities before adding new libraries.
+- Introduce a new UI/animation library only when the active ticket and
+  `react-ui-library-strategy.md` justify it.
+
+## Do not
+
+- Replace signature concepts with stock progress bars/charts/cards for convenience.
+- Introduce a second competing state/API/component pattern without explicit scope.
+- Build future-scope screens or speculative visual systems early.
+- Refactor unrelated UI while implementing a ticket.
