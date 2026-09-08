@@ -64,7 +64,13 @@ sequenced below as the active queue.
 Deferred until adopted; now sequenced per `docs/phased-development-plan.md` §5 and
 `docs/DesignConcept/GoalStateCompanion/GSP-ConceptCharter.md` §25-26. Design-doc tickets (3001-3006)
 produce `docs/DesignConcept/GoalStateCompanion/0N_*.md` artefacts only — no app code — before any
-technology choice or implementation begins.
+implementation begins.
+
+**Two decisions are locked (not open questions for their tickets to re-litigate):**
+- **Rendering technology:** React Three Fiber / Three.js — a proper 3D character (ticket 3007
+  documents/confirms this rather than evaluating alternatives from scratch).
+- **Dashboard placement:** centred between the Calories and Move `DailyTargetGauge` (`compact`
+  variant) on the Dashboard, replacing the current full-width side-by-side gauge row (ticket 3011).
 
 ### Design decisions (no app code)
 1. [3001 - Define Character Visual Language](phase3/3001-define-character-visual-language.md) — implemented
@@ -75,7 +81,7 @@ technology choice or implementation begins.
 6. [3006 - Define Historical and No-Data Behaviour](phase3/3006-define-historical-and-no-data-behaviour.md) — after 3002 and 3004
 
 ### Technology and implementation
-7. [3007 - Evaluate Rendering Technology and Spike](phase3/3007-evaluate-rendering-technology-and-spike.md) — after 3004, 3005 and 3006
+7. [3007 - Confirm 3D Rendering Technology (React Three Fiber) and Spike](phase3/3007-evaluate-rendering-technology-and-spike.md) — after 3004, 3005 and 3006
 8. [3008 - Implement Companion State Contract](phase3/3008-implement-companion-state-contract.md) — after 3002, 3003 and 3006
 9. [3009 - Build Minimum Viable Render Prototype](phase3/3009-build-minimum-viable-render-prototype.md) — after 3007 and 3008
 10. [3010 - Implement Character States and Animation System](phase3/3010-implement-character-states-and-animation.md) — after 3009
