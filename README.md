@@ -24,7 +24,7 @@ Run from the repo root (targets both workspaces) or with `-w client` / `-w serve
 
 | Command | Effect |
 |---|---|
-| `npm run dev` | Start server (`:4000`) and client (`:5173`) together |
+| `npm run dev` | Start server (`:4011`) and client (`:5111`) together |
 | `npm run build` | Production build for both packages |
 | `npm run typecheck` | TypeScript project check for both packages |
 | `npm run lint` | ESLint (server) / oxlint (client) |

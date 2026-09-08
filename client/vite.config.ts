@@ -6,6 +6,9 @@ import { defineConfig } from 'vite'
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   server: {
-    port: 5173,
+    // Dedicated port for this app so other Vite projects on 5173 don't steal it.
+    // strictPort: fail instead of silently moving to 5174, 5175, ...
+    port: 5111,
+    strictPort: true,
   },
 })
