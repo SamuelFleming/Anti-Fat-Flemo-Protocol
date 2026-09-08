@@ -6,7 +6,7 @@ sequenced below as the active queue.
 
 ## Next
 
-1. [3011 - Integrate GoalStateCompanion into the Dashboard](phase3/3011-integrate-companion-into-dashboard.md)
+1. [3012 - Refine and Finalise GoalStateCompanion](phase3/3012-refine-and-finalise-goalstatecompanion.md)
 
 ## Phase 1 — Foundations
 
@@ -87,7 +87,7 @@ implementation begins.
 10. [3010 - Implement Character States and Animation System](phase3/3010-implement-character-states-and-animation.md) — implemented
 
 ### Integration and finalisation
-11. [3011 - Integrate GoalStateCompanion into the Dashboard](phase3/3011-integrate-companion-into-dashboard.md) — after 3010 (deps met)
-12. [3012 - Refine and Finalise GoalStateCompanion](phase3/3012-refine-and-finalise-goalstatecompanion.md) — after 3011
+11. [3011 - Integrate GoalStateCompanion into the Dashboard](phase3/3011-integrate-companion-into-dashboard.md) — implemented
+12. [3012 - Refine and Finalise GoalStateCompanion](phase3/3012-refine-and-finalise-goalstatecompanion.md) — after 3011 (deps met)
 
 **Phase 3 gate:** 3012 implemented and every Phase 3 exit criterion in `docs/phased-development-plan.md` verified.

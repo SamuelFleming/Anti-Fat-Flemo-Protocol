@@ -1,6 +1,6 @@
 # 3011 - Integrate GoalStateCompanion into the Dashboard
 
-**Status:** Blocked  
+**Status:** Implemented  
 **Phase:** 3  
 **Depends On:** 3010
 
@@ -65,4 +65,9 @@ side-by-side full-width gauge layout, and is a confirmed decision, not an open d
   Dashboard at desktop and mobile widths; run existing Dashboard tests to confirm no regression.
 
 ## Completion Notes
-Pending implementation.
+Dashboard metrics row is now Calories (compact) — GoalStateCompanion — Move (compact). Companion
+context is mapped from the existing selected-day Dashboard payload (no second fetch). Local
+"Show companion" toggle (non-persisted) and WebGL/render failure both collapse cleanly to the
+two-gauge layout. Outer error boundary isolates companion faults. Ribbon day selection drives the
+companion via the same `selectedDate`. Mobile: gauges side-by-side, companion full-width below;
+sm+: three-column centre slot.

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { PageContainer } from '../../components/ui/PageContainer'
 import { Button } from '../../components/ui/Button'
@@ -6,11 +6,14 @@ import { GoalJourneyTrack } from '../../components/goals/GoalJourneyTrack'
 import { DailyTargetGauge } from '../../components/metrics/DailyTargetGauge'
 import { WeeklyAccountabilityRibbon, type RibbonDay } from '../../components/accountability/WeeklyAccountabilityRibbon'
 import { EnergyBalanceCard } from '../../components/dashboard/EnergyBalanceCard'
+import { GoalStateCompanion } from '../../components/companion/GoalStateCompanion'
 import { useAuth } from '../../contexts/AuthContext'
 import { fetchDashboard, type DashboardResponse } from '../../services/dashboardService'
 import { ApiError } from '../../services/apiClient'
 import { formatKcal, formatLongDate, todayDateString } from '../../utils/format'
 import { statusLabel, statusNote } from '../../utils/status'
+import { companionContextFromDashboard } from '../companion/companionContextFromDashboard'
+import type { CompanionDayContext } from '../companion/companionState'
 
 export function DashboardPage() {
   const { token } = useAuth()
@@ -18,6 +21,10 @@ export function DashboardPage() {
   const [dashboard, setDashboard] = useState<DashboardResponse | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  /** Local UI-only toggle (charter 4.9) — not persisted, no profile/API field. */
+  const [companionEnabled, setCompanionEnabled] = useState(true)
+  /** Render/WebGL failure collapses the centre slot like a disabled companion. */
+  const [companionFailed, setCompanionFailed] = useState(false)
 
   const load = useCallback(
     async (date: string) => {
@@ -40,6 +47,16 @@ export function DashboardPage() {
   useEffect(() => {
     void load(selectedDate)
   }, [load, selectedDate])
+
+  useEffect(() => {
+    // Allow retrying the companion after the user re-enables it.
+    if (companionEnabled) setCompanionFailed(false)
+  }, [companionEnabled])
+
+  const companionContext = useMemo(() => {
+    if (!dashboard) return null
+    return companionContextFromDashboard(dashboard, selectedDate)
+  }, [dashboard, selectedDate])
 
   if (loading && !dashboard) {
     return (
@@ -66,6 +83,7 @@ export function DashboardPage() {
 
   const { activeGoal, today, weight, week } = dashboard
   const isToday = selectedDate === todayDateString()
+  const showCompanion = companionEnabled && !companionFailed && companionContext != null
 
   const ribbonDays: RibbonDay[] = week.days.map((day) => ({
     date: day.date,
@@ -113,25 +131,65 @@ export function DashboardPage() {
         </section>
       )}
 
-      <section className="mb-8 grid grid-cols-1 gap-6 sm:grid-cols-2">
-        <div className="flex flex-col items-center rounded-[var(--radius-md)] border border-[color-mix(in_srgb,var(--color-moss)_18%,transparent)] bg-white/70 p-5">
-          <DailyTargetGauge
-            label="Calories"
-            metric="calories"
-            value={today.targetCalories != null ? today.caloriesConsumed : null}
-            target={today.targetCalories ?? 0}
-            unit="kcal"
-          />
+      <section className="mb-8">
+        <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+          <h2 className="text-sm font-semibold uppercase tracking-[0.12em] text-[var(--color-ink-muted)]">
+            Daily targets
+          </h2>
+          <label className="flex cursor-pointer items-center gap-2 text-xs text-[var(--color-ink-muted)]">
+            <input
+              type="checkbox"
+              checked={companionEnabled}
+              onChange={(e) => setCompanionEnabled(e.target.checked)}
+            />
+            Show companion
+          </label>
         </div>
-        <div className="flex flex-col items-center rounded-[var(--radius-md)] border border-[color-mix(in_srgb,var(--color-moss)_18%,transparent)] bg-white/70 p-5">
-          <DailyTargetGauge
-            label="Move"
-            metric="move"
-            value={today.targetMoveKj != null ? today.moveKj : null}
-            target={today.targetMoveKj ?? 0}
-            unit="kJ"
-          />
+
+        <div
+          className={
+            showCompanion
+              ? 'grid grid-cols-2 items-center gap-3 sm:grid-cols-[minmax(0,1fr)_minmax(7.5rem,10.5rem)_minmax(0,1fr)]'
+              : 'grid grid-cols-2 items-center gap-3'
+          }
+        >
+          <div className="flex flex-col items-center rounded-[var(--radius-md)] border border-[color-mix(in_srgb,var(--color-moss)_18%,transparent)] bg-white/70 p-3 sm:p-4">
+            <DailyTargetGauge
+              label="Calories"
+              metric="calories"
+              value={today.targetCalories != null ? today.caloriesConsumed : null}
+              target={today.targetCalories ?? 0}
+              unit="kcal"
+              variant="compact"
+            />
+          </div>
+
+          {showCompanion && companionContext ? (
+            <div className="col-span-2 order-last h-44 overflow-hidden rounded-[var(--radius-md)] border border-[color-mix(in_srgb,var(--color-moss)_18%,transparent)] bg-white/70 sm:col-span-1 sm:order-none sm:h-40">
+              <CompanionDashboardSlot
+                context={companionContext}
+                onUnavailable={() => setCompanionFailed(true)}
+              />
+            </div>
+          ) : null}
+
+          <div className="flex flex-col items-center rounded-[var(--radius-md)] border border-[color-mix(in_srgb,var(--color-moss)_18%,transparent)] bg-white/70 p-3 sm:p-4">
+            <DailyTargetGauge
+              label="Move"
+              metric="move"
+              value={today.targetMoveKj != null ? today.moveKj : null}
+              target={today.targetMoveKj ?? 0}
+              unit="kJ"
+              variant="compact"
+            />
+          </div>
         </div>
+
+        {companionEnabled && companionFailed ? (
+          <p className="mt-2 text-xs text-[var(--color-ink-muted)]">
+            Companion unavailable — showing gauges only.
+          </p>
+        ) : null}
       </section>
 
       <section className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -189,4 +247,42 @@ export function DashboardPage() {
       />
     </PageContainer>
   )
+}
+
+type SlotProps = {
+  context: CompanionDayContext
+  onUnavailable: () => void
+}
+
+/** Isolates companion render failures from the rest of the Dashboard. */
+function CompanionDashboardSlot({ context, onUnavailable }: SlotProps) {
+  return (
+    <CompanionSlotErrorBoundary onError={onUnavailable}>
+      <GoalStateCompanion context={context} onUnavailable={onUnavailable} />
+    </CompanionSlotErrorBoundary>
+  )
+}
+
+type BoundaryProps = {
+  children: React.ReactNode
+  onError: () => void
+}
+
+type BoundaryState = { hasError: boolean }
+
+class CompanionSlotErrorBoundary extends React.Component<BoundaryProps, BoundaryState> {
+  state: BoundaryState = { hasError: false }
+
+  static getDerivedStateFromError(): BoundaryState {
+    return { hasError: true }
+  }
+
+  componentDidCatch() {
+    this.props.onError()
+  }
+
+  render() {
+    if (this.state.hasError) return null
+    return this.props.children
+  }
 }

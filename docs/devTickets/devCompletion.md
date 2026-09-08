@@ -161,6 +161,11 @@ Record a ticket here only after its acceptance criteria and verification are com
   - Notes: layered breath/idle/sweat; sparse gestures; settle/live-update/day-change damping
     (historical days do not replay settle-in). Reduced motion lands on 3004 poses. Dashboard
     integration deferred to 3011.
+- `3011 - Integrate GoalStateCompanion into the Dashboard` — completed 2026-09-09
+  - Verification: companion mapping + companion component tests 12/12; client typecheck pass.
+  - Notes: locked 3-column compact-gauge / companion / compact-gauge row; context from existing
+    Dashboard selected-day payload; local show/hide + render-failure collapse to two gauges;
+    error boundary isolation. Progress-screen integration not in scope.
 
 ## Entry Format
 

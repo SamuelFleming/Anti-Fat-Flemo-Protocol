@@ -18,6 +18,11 @@ export type CompanionContext = CompanionDayContext
 export type GoalStateCompanionProps = {
   /** Parent-owned selected-day snapshot. Companion never fetches. */
   context: CompanionContext
+  /**
+   * Optional integration hook (Dashboard): fired when WebGL is unavailable or the
+   * lazy render chunk fails, so the parent can collapse the companion slot.
+   */
+  onUnavailable?: () => void
 }
 
 const CompanionCanvas = lazy(() => import('./CompanionCanvas'))
@@ -49,12 +54,13 @@ function detectWebGL(): boolean {
  * Driven only by companion context → 3008 contract → layered animated pose (3004/3005).
  * Reduced motion lands on the documented static pose for every behaviour.
  */
-export function GoalStateCompanion({ context }: GoalStateCompanionProps) {
+export function GoalStateCompanion({ context, onUnavailable }: GoalStateCompanionProps) {
   const { semantic, behaviour } = useMemo(() => resolveCompanionState(context), [context])
   const prefersReducedMotion = useReducedMotion()
   const reduceMotion = Boolean(prefersReducedMotion) || harnessForceReducedMotion
   const [webgl, setWebgl] = useState<boolean | null>(null)
   const [chunkFailed, setChunkFailed] = useState(false)
+  const unavailableNotified = useRef(false)
 
   const previousDate = useRef<string | undefined>(undefined)
   const previousBehaviour = useRef<ResolvedBehaviour | null>(null)
@@ -92,6 +98,13 @@ export function GoalStateCompanion({ context }: GoalStateCompanionProps) {
 
   const showFallback = webgl === false || chunkFailed
   const label = accessibleLabel(semantic.dataState, behaviour)
+
+  useEffect(() => {
+    if (!showFallback || webgl === null) return
+    if (unavailableNotified.current) return
+    unavailableNotified.current = true
+    onUnavailable?.()
+  }, [showFallback, webgl, onUnavailable])
 
   return (
     <div
