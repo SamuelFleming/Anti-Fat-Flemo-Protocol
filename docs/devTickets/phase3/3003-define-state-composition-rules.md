@@ -1,6 +1,6 @@
 # 3003 - Define State Composition Rules
 
-**Status:** Blocked  
+**Status:** Implemented  
 **Phase:** 3  
 **Depends On:** 3002
 
@@ -41,4 +41,8 @@ requiring a manually authored combination for every possible state pairing.
 - Review doc against charter sections 6, 8, 9, 12 for consistency; no code to run.
 
 ## Completion Notes
-Pending implementation.
+Produced `docs/DesignConcept/GoalStateCompanion/03_State-Composition-Rules.md`. Defined eight
+behaviour layers with ownership; posture driven by a priority table (significantly-over → …
+balanced); face via nutrition×movement matrix; goal progress quiet secondary only. Additive
+layer blending preferred over combo clips. Partial data expresses known dimensions only.
+Charter Composition Q13–17 answered. Important composition IDs listed for 3004. No app code.

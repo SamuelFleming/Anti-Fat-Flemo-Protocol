@@ -1,6 +1,6 @@
 # 3006 - Define Historical and No-Data Behaviour
 
-**Status:** Blocked  
+**Status:** Implemented  
 **Phase:** 3  
 **Depends On:** 3002, 3004
 
@@ -40,4 +40,8 @@ app already supports, and make "no data" unambiguously read as unknown rather th
   run.
 
 ## Completion Notes
-Pending implementation.
+Produced `docs/DesignConcept/GoalStateCompanion/06_Historical-and-No-Data-Behaviour.md`. Selected
+day owned by app `selectedDate`. Final known state = recompute from that day's metrics with
+`day-complete` firm rules (no separate companion snapshot). Partial = per-dimension; empty past
+and future share mannequin visual but differ in accessible copy. Charter History Q18–20 answered.
+No app code.

@@ -1,6 +1,6 @@
 # 3005 - Define Animation Vocabulary
 
-**Status:** Blocked  
+**Status:** Implemented  
 **Phase:** 3  
 **Depends On:** 3004
 
@@ -43,4 +43,8 @@ gestures, breathing, transitions and effects, without over-scoping into full cli
   code to run.
 
 ## Completion Notes
-Pending implementation.
+Produced `docs/DesignConcept/GoalStateCompanion/05_Animation-Vocabulary.md`. Layered procedural
+channels + sparse gesture one-shots (not full-body clip-per-state). Idle, breath, transitions
+(fresh load / live update / selected-day cross-fade), particle-free sweat/accent effects, and
+reduced-motion → 3004 static pose mapping each documented. Aligns with app Motion Rules. Enough
+blending concreteness for 3007 R3F spike. No app code.

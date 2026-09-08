@@ -1,6 +1,6 @@
 # 3002 - Define Companion State Model
 
-**Status:** Blocked  
+**Status:** Implemented  
 **Phase:** 3  
 **Depends On:** 3001
 
@@ -46,4 +46,12 @@ semantic, time-aware, range-aware state — without inventing new health calcula
   consistency; no code to run.
 
 ## Completion Notes
-Pending implementation.
+Produced `docs/DesignConcept/GoalStateCompanion/02_State-Model.md`. Defined five dimensions
+(`nutrition`, `movement`, `goalProgress`, `dataState`, `timeContext`) with finite categorical
+sets plus optional `[0,1]` intensity (hybrid). Derivation reuses existing Dashboard/domain fields
+and `DAILY_STATUS_THRESHOLDS` (`+100`/`+300` kcal, Move `0.6`/`0.9` ratios) rather than inventing
+new formulas. Time softens under-target readings early in the day and firms them in evening;
+overshoot is never rescued by morning. `dataState` gates unknown/partial/live/complete and never
+coerces missing Move to 0. Goal progress is trajectory-smoothed with a quiet band — no single
+weigh-in flips. Charter §24 State Q7–12 answered explicitly. Composition deferred to 3003; no
+app code changed.

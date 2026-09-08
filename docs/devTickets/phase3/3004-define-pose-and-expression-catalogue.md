@@ -1,6 +1,6 @@
 # 3004 - Define Pose and Expression Catalogue
 
-**Status:** Blocked  
+**Status:** Implemented  
 **Phase:** 3  
 **Depends On:** 3001, 3003
 
@@ -40,4 +40,8 @@ reduced-motion users and static-fallback rendering still communicate meaning cor
 - Review doc against charter sections 4.10, 13, 14 for consistency; no code to run.
 
 ## Completion Notes
-Pending implementation.
+Produced `docs/DesignConcept/GoalStateCompanion/04_Pose-and-Expression-Catalogue.md`. Catalogue
+covers all important 3003 composition IDs (`mannequin`, `balanced`, `mildly-full`, `over-full`,
+`exertion`, `high-exertion`, `low-fuel`, `under-moved`, partial variants, `milestone`) with
+renderer-independent stance/torso/arms/face/accent specs. Mannequin explicitly distinct from
+negative poses. Face token map included. No app code.
