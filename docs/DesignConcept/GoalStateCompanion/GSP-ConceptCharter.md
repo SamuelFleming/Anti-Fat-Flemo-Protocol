@@ -4,7 +4,9 @@
 
 **Working conceptual specification — v0.2**
 
-This document establishes the purpose, design principles, conceptual boundaries and high-level architecture of `GoalStateCompanion`.
+This document establishes the purpose, design prin
+
+ciples, conceptual boundaries and high-level architecture of `GoalStateCompanion`.
 
 It deliberately does **not** yet define:
 
