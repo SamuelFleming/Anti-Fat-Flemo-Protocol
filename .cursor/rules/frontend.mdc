@@ -6,8 +6,9 @@ alwaysApply: false
 
 # Frontend Rules
 
-Sources: `04-Screens-and-UX.md`, `07-API-Specification.md`, relevant `docs/DesignConcept/`
-files, and the active dev ticket.
+Sources: `04-Screens-and-UX.md`, `07-API-Specification.md`,
+`docs/DesignConcept/00_UI-Design-Concept.md` plus the matching `.visual.md`,
+and the active dev ticket. Do not preload the rest of DesignConcept.
 
 ## Stack and structure
 
@@ -32,12 +33,11 @@ files, and the active dev ticket.
 ## UX and visual implementation
 
 - This project intentionally avoids generic card-heavy SaaS/fitness-dashboard styling.
-- Treat `docs/DesignConcept/00_UI-Design-Concept.md` as the visual-language entry point.
-- For signature components, read the matching `.visual.md` plus:
-  `core-visual-component-requirements.md`,
-  `react-ui-library-strategy.md`, and `ui-component-architecture.md` only as needed.
-- Preserve the functional/visual idea of `GoalJourneyTracker`, `DailyTargetGauge`,
-  `WeeklyAccountabilityRibbon`, and `GoalStateCompanion`; do not genericise them.
+- Visual entry point: `docs/DesignConcept/00_UI-Design-Concept.md`. Then only the matching `.visual.md`.
+- Do not load `core-visual-component-requirements.md`, `ui-component-architecture.md`, or
+  `react-ui-library-strategy.md` unless placing files or choosing a library.
+- Preserve `GoalJourneyTrack`, `DailyTargetGauge`, and `WeeklyAccountabilityRibbon`.
+  Do not genericise them. Do not implement `GoalStateCompanion` unless the ticket adopts it.
 - Animation should explain state/change, not exist as decoration.
 - Avoid page-wide simultaneous animation; prefer local transitions driven by changed data.
 - Respect `prefers-reduced-motion`; never make animation or colour the sole carrier of meaning.

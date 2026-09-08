@@ -205,6 +205,7 @@ Later versions may add:
 * interactive historical timelines
 * animated comparisons between goals
 * motion-driven onboarding
+* `GoalStateCompanion` (see `docs/DesignConcept/GoalStateCompanion/` — not MVP)
 
 These should build upon the same core design system rather than introducing unrelated animation styles.
 

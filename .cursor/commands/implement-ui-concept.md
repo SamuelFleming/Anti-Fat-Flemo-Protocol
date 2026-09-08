@@ -2,18 +2,15 @@
 
 Use for signature visual components or work where interaction/animation fidelity is a primary requirement.
 
-Typical targets include `GoalJourneyTracker`, `DailyTargetGauge`,
-`WeeklyAccountabilityRibbon`, and `GoalStateCompanion`.
+Typical targets: `GoalJourneyTrack`, `DailyTargetGauge`, `WeeklyAccountabilityRibbon`.
+`GoalStateCompanion` only if the ticket explicitly adopts it.
 
 ## Instructions
 
 1. Read `CLAUDE.md`, the active ticket, and the relevant screen/UX requirements.
-2. Read the target component's `.visual.md` or adopted GoalStateCompanion concept.
-3. Read cross-component design docs only as needed:
-   - `00_UI-Design-Concept.md`
-   - `core-visual-component-requirements.md`
-   - `react-ui-library-strategy.md`
-   - `ui-component-architecture.md`
+2. Read `00_UI-Design-Concept.md` and the target component's `.visual.md`.
+3. Do not read architecture, library strategy, inventory, or `GoalStateCompanion/`
+   unless file placement, a new library, or an adopted companion ticket requires it.
 4. Inspect existing implementation/primitives before choosing libraries or component boundaries.
 5. Extract the required states before coding:
    - default/live

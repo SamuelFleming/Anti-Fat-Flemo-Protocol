@@ -30,22 +30,21 @@ Use documents selectively; do not preload the whole documentation set for every 
 - Domain/calculation behaviour → `06-Calculation-Rules.md`
 - HTTP/API design intent → `07-API-Specification.md`
 - Explicitly deferred ideas → `08-Future-Scope.md`
-- Visual language and interaction design → `docs/DesignConcept/`
+- Visual language → `docs/DesignConcept/00_UI-Design-Concept.md`, then only the matching `.visual.md`
 - Current implementation scope → relevant file in `docs/devTickets/`
 - Implemented behaviour → current codebase and implemented OpenAPI mirror
 
 Functional scope is governed by `core-scope`; visual treatment is governed by `DesignConcept`.
-A design exploration does not become implementation scope unless the current ticket adopts it.
+Do not preload the DesignConcept folder. `GoalStateCompanion/` is deferred unless a ticket adopts it.
 
 ## Signature UI
 
-The current signature concepts include:
-`GoalJourneyTracker`, `DailyTargetGauge`, `WeeklyAccountabilityRibbon`, and `GoalStateCompanion`.
+Canonical names: `GoalJourneyTrack`, `DailyTargetGauge`, `WeeklyAccountabilityRibbon`.
 
 Do not replace a specified signature component with a conventional progress bar, chart, card,
 or stock dashboard equivalent merely because it is easier to implement.
-Read only the relevant `.visual.md`, component requirements, architecture, and library strategy
-documents when working on that component.
+Read `00_UI-Design-Concept.md` and the matching `.visual.md` only. Architecture and library
+strategy are optional, on demand.
 
 ## Working rules
 

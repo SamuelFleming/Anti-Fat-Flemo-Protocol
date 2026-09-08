@@ -32,13 +32,18 @@ Do not duplicate these specifications into tickets or Cursor rules.
 
 ## Design documentation
 
-- `00_UI-Design-Concept.md` defines the broader visual direction.
-- Component `.visual.md` files define specific signature-component behaviour.
-- `core-visual-component-requirements.md`, `react-ui-library-strategy.md`, and
-  `ui-component-architecture.md` govern cross-component implementation decisions.
-- Material under `GoalStateCompanion/` or `ReferenceItems/` may be exploratory;
-  the active ticket should identify which concept is adopted.
-- If design and core functional scope conflict, flag the conflict rather than silently choosing.
+Do not preload `docs/DesignConcept/`. Start from `docs/DesignConcept/README.md` or `00_UI-Design-Concept.md`.
+
+- `00_UI-Design-Concept.md` is the visual-language source of truth (palette, motion, authority).
+- Component `.visual.md` files are the signature-widget source of truth.
+- `core-visual-component-requirements.md` is an inventory, not a second spec.
+- `ui-component-architecture.md` is file placement / layering only.
+- `react-ui-library-strategy.md` is for library choice only.
+- Canonical names: `GoalJourneyTrack`, `DailyTargetGauge`, `WeeklyAccountabilityRibbon`.
+- `GoalStateCompanion/` and `ReferenceItems/` are not MVP reading unless the ticket says so.
+- Figma layout is not binding; tokens live in `00_UI-Design-Concept.md`.
+- Visual conflict: DesignConcept wins. Status/calculation conflict: core-scope / `06` wins.
+- If design and core functional scope still disagree after that, flag it rather than silently choosing.
 
 ## Dev ticket format
 
