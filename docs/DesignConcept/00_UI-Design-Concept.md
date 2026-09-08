@@ -25,7 +25,7 @@ Conflict rules:
 
 - grounded moss / lime / coral / lavender palette;
 - warm neutral canvas;
-- left-side navigation;
+- compact top navigation;
 - clear metric hierarchy;
 - restrained use of cards;
 - custom treatment for the main tracking widgets.
@@ -52,6 +52,31 @@ Notes:
 - Lime is reserved for non-text emphasis (markers, today, current position).
 
 `ReferenceItems/FigmaOutput.png` is the origin of this palette. Its dashboard layout, “Pulse” branding, filled progress bar, isolated day dots, and semicircle gauges are **not** binding. Ignore `ReferenceItems/CareerContext-Dashboard.png`.
+
+## Application Navigation
+
+Use a persistent, compact **top navigation rail** rather than the Figma/sidebar layout.
+
+The desktop treatment may take spatial inspiration from React Bits Card Nav, but should be
+implemented with project-owned markup and Motion for React rather than adding GSAP. Keep primary
+destinations visible without requiring the menu to expand; any expansion is for secondary actions.
+
+On narrow screens, collapse to an accessible drawer/menu. A restrained stagger may be used, but do
+not adopt the full-screen React Bits Staggered Menu: frequent tracker navigation should remain fast,
+predictable and available with reduced motion.
+
+Navigation must use the established tokens, expose clear current-route and focus states, and leave
+Dashboard data—not the navigation animation—as the visual focus.
+
+## Authentication Screens
+
+Login and registration should use a bespoke **journey entry** composition: accessible conventional
+form controls paired with a restrained progress-path or moving-marker motif derived from
+`GoalJourneyTrack`.
+
+The motif may respond subtly on entry or successful submission, but it must not imply goal progress,
+delay authentication, or require a separate animation library. If an external effect cannot be made
+coherent, accessible and reduced-motion compatible, use project primitives and Motion instead.
 
 ## Signature Components (MVP)
 
