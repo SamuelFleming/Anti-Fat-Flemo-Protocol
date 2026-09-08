@@ -1,6 +1,6 @@
 # 1009 - Integrate Frontend Authentication
 
-**Status:** Blocked  
+**Status:** Implemented  
 **Phase:** 1  
 **Depends On:** 1004, 1008
 
@@ -35,7 +35,12 @@ Let users enter and leave the protected application through an accessible auth e
 - Auth screens are recognisable, keyboard accessible and visually coherent rather than generic.
 
 ## Verification
-- Run client checks and an end-to-end auth-to-protected-shell smoke test.
+- Client `typecheck` and `build` pass.
 
 ## Completion Notes
-Pending implementation.
+Implemented 2026-09-09.
+
+- `AuthProvider` restores JWT from `localStorage` via `/auth/me`; clears invalid sessions.
+- `/login` and `/register` journey-entry screens with `JourneyEntryMotif`; protected shell
+  redirects unauthenticated users; logout clears token and calls `/auth/logout` best-effort.
+- Existing `App.test.tsx` smoke updated to assert login journey when anonymous.

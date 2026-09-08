@@ -1,6 +1,6 @@
 # 1001 - Bootstrap MERN Workspace
 
-**Status:** Ready  
+**Status:** Implemented  
 **Phase:** 1  
 **Depends On:** None
 
@@ -39,4 +39,12 @@ Create a reproducible TypeScript MERN workspace that future tickets can build an
 - Run install, type-check/lint and production builds for both packages.
 
 ## Completion Notes
-Pending implementation.
+- npm workspaces root (`client`, `server`); `concurrently`-based root `dev` script.
+- `server`: Express 5 + TypeScript (NodeNext ESM), `tsx watch` for dev, `tsc` build, ESLint 9 flat
+  config, Vitest + Supertest. Pinned `typescript@5.9.3` (repo tooling latest is a 7.x major not yet
+  supported by `typescript-eslint`).
+- `client`: Vite 8 + React 19 + TypeScript scaffold (`create-vite react-ts`), Tailwind CSS 4 via
+  `@tailwindcss/vite`, oxlint (Vite's current default linter), Vitest + Testing Library.
+- `.env.example` documented for both packages; secrets excluded via root `.gitignore`.
+- Verified: server/client typecheck, lint, test and build all pass; both dev servers boot
+  (`:4000`, `:5173`) from a clean `npm install`.

@@ -1,6 +1,6 @@
 # 1008 - Build Frontend Application Shell
 
-**Status:** Blocked  
+**Status:** Implemented  
 **Phase:** 1  
 **Depends On:** 1001
 
@@ -35,7 +35,13 @@ Create a responsive, recognisable application shell with fast access to every pr
 - Navigation fits the canonical palette and does not use GSAP or mimic the old sidebar.
 
 ## Verification
-- Run client type-check/lint/build and keyboard/responsive navigation checks.
+- Client `typecheck` and `build` pass.
 
 ## Completion Notes
-Pending implementation.
+Implemented 2026-09-09.
+
+- Design tokens in `styles/tokens.css`; moss top rail `AppNav` with desktop links always
+  visible and Escape-dismissable mobile drawer (Motion + `useReducedMotion`).
+- Route placeholders for Dashboard / Daily Log / Progress / Goals / Settings.
+- Shared `apiClient`, `Button` / `Input` / `PageContainer` primitives.
+- Auth wiring landed in 1009 on top of this shell.

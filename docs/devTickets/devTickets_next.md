@@ -5,26 +5,26 @@ Tickets execute in dependency order. Start only tickets whose dependencies are i
 
 ## Next
 
-1. [1001 - Bootstrap MERN Workspace](phase1/1001-bootstrap-mern-workspace.md)
+1. [2001 - Implement Calculation Layer](phase2/2001-implement-calculation-layer.md)
 
 ## Phase 1 — Foundations
 
 ### Platform
-1. [1001 - Bootstrap MERN Workspace](phase1/1001-bootstrap-mern-workspace.md) — ready
-2. [1002 - Establish Backend Platform](phase1/1002-establish-backend-platform.md) — after 1001
-3. [1003 - Implement Canonical Domain Models](phase1/1003-implement-canonical-domain-models.md) — after 1002
+1. [1001 - Bootstrap MERN Workspace](phase1/1001-bootstrap-mern-workspace.md) — implemented
+2. [1002 - Establish Backend Platform](phase1/1002-establish-backend-platform.md) — implemented
+3. [1003 - Implement Canonical Domain Models](phase1/1003-implement-canonical-domain-models.md) — implemented
 
 ### Authentication and ownership
-4. [1004 - Implement Authentication API](phase1/1004-implement-authentication-api.md) — after 1003
-5. [1005 - Enforce User-Scoped Data Ownership](phase1/1005-enforce-user-scoped-data-ownership.md) — after 1004
+4. [1004 - Implement Authentication API](phase1/1004-implement-authentication-api.md) — implemented
+5. [1005 - Enforce User-Scoped Data Ownership](phase1/1005-enforce-user-scoped-data-ownership.md) — implemented
 
 ### Core APIs
-6. [1006 - Implement Profile and Goal APIs](phase1/1006-implement-profile-and-goal-apis.md) — after 1005
-7. [1007 - Implement Tracking APIs](phase1/1007-implement-tracking-apis.md) — after 1005
+6. [1006 - Implement Profile and Goal APIs](phase1/1006-implement-profile-and-goal-apis.md) — implemented
+7. [1007 - Implement Tracking APIs](phase1/1007-implement-tracking-apis.md) — implemented
 
 ### Frontend foundation
-8. [1008 - Build Frontend Application Shell](phase1/1008-build-frontend-application-shell.md) — after 1001; may proceed while backend feature APIs are built
-9. [1009 - Integrate Frontend Authentication](phase1/1009-integrate-frontend-authentication.md) — after 1004 and 1008
+8. [1008 - Build Frontend Application Shell](phase1/1008-build-frontend-application-shell.md) — implemented
+9. [1009 - Integrate Frontend Authentication](phase1/1009-integrate-frontend-authentication.md) — implemented
 
 **Phase 1 gate:** all 1001–1009 implemented; local authenticated shell and manually exercisable core CRUD APIs.
 
