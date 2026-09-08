@@ -1,6 +1,6 @@
 # 3007 - Confirm 3D Rendering Technology (React Three Fiber) and Spike
 
-**Status:** Blocked  
+**Status:** Implemented  
 **Phase:** 3  
 **Depends On:** 3004, 3005, 3006
 
@@ -62,4 +62,9 @@ on in the produced doc:
   Approach in `docs/phased-development-plan.md`.
 
 ## Completion Notes
-Pending implementation.
+Produced `docs/DesignConcept/GoalStateCompanion/07_Technology-Evaluation.md` locking R3F/Three.js
+with rationale vs Motion-only/Rive/Spline/Lottie/SVG. Added client deps `three`,
+`@react-three/fiber`, `@react-three/drei`. Throwaway spike at
+`client/src/features/companion/_spike/` on `/dev/companion-spike` (not in nav/Dashboard): lazy
+Canvas, mannequin ↔ high-exertion pose swap, WebGL/chunk failure fallback. Charter Technology
+Q21–25 answered in the eval doc.

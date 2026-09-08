@@ -8,6 +8,7 @@ import { DailyLogPage } from '../features/dailyLog/DailyLogPage'
 import { GoalsPage } from '../features/goals/GoalsPage'
 import { ProgressPage } from '../features/progress/ProgressPage'
 import { SettingsPage } from '../features/settings/SettingsPage'
+import { CompanionSpikePage } from '../features/companion/_spike/CompanionSpikePage'
 
 export function AppRouter() {
   return (
@@ -15,6 +16,8 @@ export function AppRouter() {
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        {/* Throwaway 3007 spike — not in nav, not Dashboard. Remove/replace in 3009. */}
+        <Route path="/dev/companion-spike" element={<CompanionSpikePage />} />
 
         <Route element={<ProtectedRoute />}>
           <Route element={<AuthenticatedShell />}>

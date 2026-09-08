@@ -6,7 +6,7 @@ sequenced below as the active queue.
 
 ## Next
 
-1. [3002 - Define Companion State Model](phase3/3002-define-companion-state-model.md)
+1. [3009 - Build Minimum Viable Render Prototype](phase3/3009-build-minimum-viable-render-prototype.md)
 
 ## Phase 1 — Foundations
 
@@ -74,16 +74,16 @@ implementation begins.
 
 ### Design decisions (no app code)
 1. [3001 - Define Character Visual Language](phase3/3001-define-character-visual-language.md) — implemented
-2. [3002 - Define Companion State Model](phase3/3002-define-companion-state-model.md) — after 3001
-3. [3003 - Define State Composition Rules](phase3/3003-define-state-composition-rules.md) — after 3002
-4. [3004 - Define Pose and Expression Catalogue](phase3/3004-define-pose-and-expression-catalogue.md) — after 3001 and 3003
-5. [3005 - Define Animation Vocabulary](phase3/3005-define-animation-vocabulary.md) — after 3004
-6. [3006 - Define Historical and No-Data Behaviour](phase3/3006-define-historical-and-no-data-behaviour.md) — after 3002 and 3004
+2. [3002 - Define Companion State Model](phase3/3002-define-companion-state-model.md) — implemented
+3. [3003 - Define State Composition Rules](phase3/3003-define-state-composition-rules.md) — implemented
+4. [3004 - Define Pose and Expression Catalogue](phase3/3004-define-pose-and-expression-catalogue.md) — implemented
+5. [3005 - Define Animation Vocabulary](phase3/3005-define-animation-vocabulary.md) — implemented
+6. [3006 - Define Historical and No-Data Behaviour](phase3/3006-define-historical-and-no-data-behaviour.md) — implemented
 
 ### Technology and implementation
-7. [3007 - Confirm 3D Rendering Technology (React Three Fiber) and Spike](phase3/3007-evaluate-rendering-technology-and-spike.md) — after 3004, 3005 and 3006
-8. [3008 - Implement Companion State Contract](phase3/3008-implement-companion-state-contract.md) — after 3002, 3003 and 3006
-9. [3009 - Build Minimum Viable Render Prototype](phase3/3009-build-minimum-viable-render-prototype.md) — after 3007 and 3008
+7. [3007 - Confirm 3D Rendering Technology (React Three Fiber) and Spike](phase3/3007-evaluate-rendering-technology-and-spike.md) — implemented
+8. [3008 - Implement Companion State Contract](phase3/3008-implement-companion-state-contract.md) — implemented
+9. [3009 - Build Minimum Viable Render Prototype](phase3/3009-build-minimum-viable-render-prototype.md) — after 3007 and 3008 (deps met)
 10. [3010 - Implement Character States and Animation System](phase3/3010-implement-character-states-and-animation.md) — after 3009
 
 ### Integration and finalisation

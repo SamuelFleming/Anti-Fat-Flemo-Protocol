@@ -1,6 +1,6 @@
 # 3008 - Implement Companion State Contract
 
-**Status:** Blocked  
+**Status:** Implemented  
 **Phase:** 3  
 **Depends On:** 3002, 3003, 3006
 
@@ -49,4 +49,8 @@ composed companion state, so the renderer (3009/3010) has a stable, testable con
   the Phase 3 Testing Approach — not exhaustive combinatorial coverage).
 
 ## Completion Notes
-Pending implementation.
+Implemented pure contract in `client/src/features/companion/companionState.ts` (context → semantic
+dimensions → resolved behaviour layers/compositionId). Reuses domain calorie/Move bands; time-aware
+nutrition; no-data/partial/historical rules from 3002/3003/3006. No fetch/render deps. Explainability
+`reasons` shape deferred (not needed for renderer contract). Light unit tests:
+`companionState.test.ts` (7 cases) all passing.
