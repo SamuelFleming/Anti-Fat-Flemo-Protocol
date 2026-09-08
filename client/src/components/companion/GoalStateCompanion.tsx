@@ -1,9 +1,16 @@
-import React, { Suspense, lazy, useEffect, useMemo, useState } from 'react'
+import React, { Suspense, lazy, useEffect, useMemo, useRef, useState } from 'react'
+import { useReducedMotion } from 'motion/react'
 import {
   resolveCompanionState,
   type CompanionDayContext,
   type ResolvedBehaviour,
 } from '../../features/companion/companionState'
+import {
+  companionTransitionKind,
+  gestureForTransition,
+  type GestureId,
+  type TransitionKind,
+} from './poseTargets'
 
 /** Alias matching ticket wording — same shape as CompanionDayContext. */
 export type CompanionContext = CompanionDayContext
@@ -15,11 +22,16 @@ export type GoalStateCompanionProps = {
 
 const CompanionCanvas = lazy(() => import('./CompanionCanvas'))
 
-/** Dev/harness only — not a public render prop. Lets `/dev/companion-prototype` simulate failure. */
+/** Dev/harness only — not public render props. Let `/dev/companion-prototype` simulate paths. */
 let harnessForceFallback = false
+let harnessForceReducedMotion = false
 
 export function setCompanionRendererForceFallback(value: boolean) {
   harnessForceFallback = value
+}
+
+export function setCompanionForceReducedMotion(value: boolean) {
+  harnessForceReducedMotion = value
 }
 
 function detectWebGL(): boolean {
@@ -33,13 +45,42 @@ function detectWebGL(): boolean {
 }
 
 /**
- * Signature GoalStateCompanion — MVP static render prototype (ticket 3009).
- * Driven only by companion context → 3008 contract. Animation system is 3010.
+ * Signature GoalStateCompanion (tickets 3009 + 3010).
+ * Driven only by companion context → 3008 contract → layered animated pose (3004/3005).
+ * Reduced motion lands on the documented static pose for every behaviour.
  */
 export function GoalStateCompanion({ context }: GoalStateCompanionProps) {
   const { semantic, behaviour } = useMemo(() => resolveCompanionState(context), [context])
+  const prefersReducedMotion = useReducedMotion()
+  const reduceMotion = Boolean(prefersReducedMotion) || harnessForceReducedMotion
   const [webgl, setWebgl] = useState<boolean | null>(null)
   const [chunkFailed, setChunkFailed] = useState(false)
+
+  const previousDate = useRef<string | undefined>(undefined)
+  const previousBehaviour = useRef<ResolvedBehaviour | null>(null)
+  const transitionKindRef = useRef<TransitionKind>('settle')
+  const gestureRef = useRef<GestureId>('none')
+  const lastSig = useRef<string | null>(null)
+
+  const sig = `${context.date}|${behaviour.compositionId}|${behaviour.posture}|${behaviour.face}|${String(Boolean(context.milestone))}`
+  if (lastSig.current == null) {
+    transitionKindRef.current = 'settle'
+    gestureRef.current = 'none'
+    previousDate.current = context.date
+    previousBehaviour.current = behaviour
+    lastSig.current = sig
+  } else if (lastSig.current !== sig) {
+    transitionKindRef.current = companionTransitionKind(previousDate.current, context.date)
+    gestureRef.current = reduceMotion
+      ? 'none'
+      : gestureForTransition(previousBehaviour.current, behaviour)
+    previousDate.current = context.date
+    previousBehaviour.current = behaviour
+    lastSig.current = sig
+  }
+
+  const transitionKind = transitionKindRef.current
+  const gesture = gestureRef.current
 
   useEffect(() => {
     setWebgl(detectWebGL())
@@ -59,6 +100,8 @@ export function GoalStateCompanion({ context }: GoalStateCompanionProps) {
       aria-label={label}
       data-composition={behaviour.compositionId}
       data-data-state={semantic.dataState}
+      data-transition-kind={transitionKind}
+      data-gesture={gesture}
     >
       {webgl === null ? (
         <NeutralPlaceholder behaviour={behaviour} quiet />
@@ -67,7 +110,12 @@ export function GoalStateCompanion({ context }: GoalStateCompanionProps) {
       ) : (
         <Suspense fallback={<NeutralPlaceholder behaviour={behaviour} quiet />}>
           <RenderErrorBoundary onError={() => setChunkFailed(true)}>
-            <CompanionCanvas behaviour={behaviour} />
+            <CompanionCanvas
+              behaviour={behaviour}
+              reduceMotion={reduceMotion}
+              transitionKind={transitionKind}
+              gesture={gesture}
+            />
           </RenderErrorBoundary>
         </Suspense>
       )}

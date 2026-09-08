@@ -155,6 +155,12 @@ Record a ticket here only after its acceptance criteria and verification are com
   - Notes: produced `09_Prototype-Plan.md`. Real `GoalStateCompanion` (context-only prop, lazy
     R3F, failure placeholder). Representative static poses: mannequin / balanced / mildly-full /
     high-exertion. 3007 `_spike` removed. Animation and Dashboard integration deferred.
+- `3010 - Implement Character States and Animation System` — completed 2026-09-09
+  - Verification: companion tests 17/17; client typecheck pass. Harness covers full catalogue,
+    live-update vs day-change, reduced-motion static poses.
+  - Notes: layered breath/idle/sweat; sparse gestures; settle/live-update/day-change damping
+    (historical days do not replay settle-in). Reduced motion lands on 3004 poses. Dashboard
+    integration deferred to 3011.
 
 ## Entry Format
 

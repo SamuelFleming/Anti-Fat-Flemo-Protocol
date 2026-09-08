@@ -54,8 +54,24 @@ describe('GoalStateCompanion', () => {
   it('resolves balanced and mildly-full compositions from context only', () => {
     const { rerender } = render(<GoalStateCompanion context={balanced} />)
     expect(screen.getByRole('img')).toHaveAttribute('data-composition', 'balanced')
+    expect(screen.getByRole('img')).toHaveAttribute('data-transition-kind', 'settle')
 
     rerender(<GoalStateCompanion context={overTarget} />)
+    expect(screen.getByRole('img')).toHaveAttribute('data-composition', 'mildly-full')
+    expect(screen.getByRole('img')).toHaveAttribute('data-transition-kind', 'live-update')
+    expect(screen.getByRole('img')).toHaveAttribute('data-gesture', 'hand-to-torso')
+  })
+
+  it('cross-fades a historical day without treating it as a fresh-load settle', () => {
+    const historical: CompanionDayContext = {
+      ...overTarget,
+      date: '2026-09-03',
+      isToday: false,
+      clockHourLocal: 9,
+    }
+    const { rerender } = render(<GoalStateCompanion context={balanced} />)
+    rerender(<GoalStateCompanion context={historical} />)
+    expect(screen.getByRole('img')).toHaveAttribute('data-transition-kind', 'day-change')
     expect(screen.getByRole('img')).toHaveAttribute('data-composition', 'mildly-full')
   })
 })

@@ -1,6 +1,6 @@
 # 3010 - Implement Character States and Animation System
 
-**Status:** Blocked  
+**Status:** Implemented  
 **Phase:** 3  
 **Depends On:** 3009
 
@@ -48,4 +48,10 @@ reachable, idle/gesture/transition behaviour is implemented, and reduced motion 
   reduced-motion; targeted unit tests only for any new pure logic, per the Phase 3 Testing Approach.
 
 ## Completion Notes
-Pending implementation.
+Grew the 3009 prototype into the documented 3004/3005 system: all catalogue compositions are
+reachable in `/dev/companion-prototype`; layered procedural breath/idle/sweat plus sparse
+gestures (`hand-to-torso`, `recovery-stretch`, `pleased-pulse`); settle vs live-update vs
+day-change damping (historical day selection does not replay fresh-load settle-in). Reduced
+motion (`prefers-reduced-motion` + harness toggle) suppresses loops/gestures and lands on the
+3004 static pose. Pure tests cover motion params, transition kind, and gestures. Dashboard
+integration remains 3011.

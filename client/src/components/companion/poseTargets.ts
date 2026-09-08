@@ -1,12 +1,15 @@
 import type {
   AccentToken,
   BodyFormToken,
+  BreathingToken,
+  EffectsToken,
   FaceToken,
+  IdleToken,
   PostureToken,
   ResolvedBehaviour,
 } from '../../features/companion/companionState'
 
-/** Static visual targets for the MVP prototype (no animation). */
+/** Static pose targets + pure motion parameters (3009 poses, 3010 animation). */
 
 export type PoseVisual = {
   opacity: number
@@ -71,6 +74,118 @@ function bodyScale(bodyForm: BodyFormToken, posture: PostureToken): [number, num
   return [1, 1, 1]
 }
 
+/**
+ * Procedural motion channels per 05_Animation-Vocabulary (§3 breathing, §4 idle, §7 effects).
+ * Pure mapping from behaviour tokens; renderer applies oscillators. Reduced motion zeroes loops.
+ */
+export type MotionParams = {
+  /** Breath cycles per second. */
+  breathRate: number
+  /** Torso scale amplitude of one breath (bounded). */
+  breathAmplitude: number
+  /** Idle sway angle amplitude (radians). */
+  idleSwayAmplitude: number
+  /** Idle sway cycles per second. */
+  idleSwaySpeed: number
+  /** Sweat sheen strength 0–1. */
+  sweatIntensity: number
+  /** Accent glow strength 0–1. */
+  accentIntensity: number
+  /** Damping lambda for transitions toward targets (higher = snappier). */
+  transitionSpeed: number
+}
+
+/** Motion Rules: fresh load vs live data vs selected-day change. */
+export type TransitionKind = 'settle' | 'live-update' | 'day-change'
+
+export type GestureId = 'none' | 'hand-to-torso' | 'recovery-stretch' | 'pleased-pulse'
+
+export const TRANSITION_SPEED: Record<TransitionKind, number> = {
+  settle: 2.6,
+  'live-update': 4.4,
+  'day-change': 2.0,
+}
+
+export function companionTransitionKind(
+  previousDate: string | undefined,
+  nextDate: string,
+): TransitionKind {
+  if (previousDate == null) return 'settle'
+  if (previousDate !== nextDate) return 'day-change'
+  return 'live-update'
+}
+
+export function gestureForTransition(
+  previous: ResolvedBehaviour | null,
+  next: ResolvedBehaviour,
+): GestureId {
+  if (!previous) return 'none'
+  if (next.compositionId === 'milestone' && previous.compositionId !== 'milestone') {
+    return 'pleased-pulse'
+  }
+  const nextFull = next.posture === 'mildly-full' || next.posture === 'over-full'
+  const prevFull = previous.posture === 'mildly-full' || previous.posture === 'over-full'
+  if (nextFull && !prevFull) return 'hand-to-torso'
+  if (next.posture === 'high-exertion' && previous.posture !== 'high-exertion') {
+    return 'recovery-stretch'
+  }
+  return 'none'
+}
+
+const BREATH: Record<BreathingToken, { rate: number; amplitude: number }> = {
+  resting: { rate: 0.22, amplitude: 0.008 },
+  easy: { rate: 0.3, amplitude: 0.014 },
+  elevated: { rate: 0.5, amplitude: 0.022 },
+  heavy: { rate: 0.68, amplitude: 0.032 },
+  recovery: { rate: 0.36, amplitude: 0.024 },
+}
+
+const IDLE: Record<IdleToken, { amplitude: number; speed: number }> = {
+  subdued: { amplitude: 0.004, speed: 0.08 },
+  minimal: { amplitude: 0.012, speed: 0.12 },
+  soft: { amplitude: 0.028, speed: 0.16 },
+  recovery: { amplitude: 0.018, speed: 0.1 },
+}
+
+const SWEAT: Record<EffectsToken, number> = {
+  none: 0,
+  'light-sweat': 0.45,
+  sweat: 0.85,
+}
+
+export function motionParamsFromBehaviour(
+  behaviour: ResolvedBehaviour,
+  transitionKind: TransitionKind = 'live-update',
+): MotionParams {
+  const breath = BREATH[behaviour.breathing]
+  const idle = IDLE[behaviour.idle]
+  return {
+    breathRate: breath.rate,
+    breathAmplitude: breath.amplitude,
+    idleSwayAmplitude: idle.amplitude,
+    idleSwaySpeed: idle.speed,
+    sweatIntensity: SWEAT[behaviour.effects],
+    accentIntensity: behaviour.materialAccent === 'none' ? 0 : 0.9,
+    transitionSpeed: TRANSITION_SPEED[transitionKind],
+  }
+}
+
+/** Neutral starting values for fresh-load settle-in (mannequin per Motion Rules). */
+export const MANNEQUIN_VISUAL: PoseVisual = {
+  opacity: 0.7,
+  torsoScale: [1, 1, 1],
+  armSpread: 0.4,
+  armReachZ: 0,
+  armLift: 0,
+  legSpread: 0.18,
+  leanZ: 0,
+  eyeScale: 1,
+  eyeOpen: 1,
+  mouthCurve: 0,
+  mouthOpen: 0,
+  accent: 'none',
+}
+
 export function poseVisualFromBehaviour(behaviour: ResolvedBehaviour): PoseVisual {
   const { posture, face, bodyForm, materialAccent, compositionId } = behaviour
   const facePart = faceTargets(face)
@@ -125,6 +240,10 @@ export function poseVisualFromBehaviour(behaviour: ResolvedBehaviour): PoseVisua
   }
 
   if (compositionId === 'mannequin') opacity = Math.min(opacity, 0.7)
+  if (compositionId === 'milestone') {
+    armSpread = Math.max(armSpread, 0.5)
+    legSpread = Math.max(legSpread, 0.22)
+  }
 
   return {
     opacity,

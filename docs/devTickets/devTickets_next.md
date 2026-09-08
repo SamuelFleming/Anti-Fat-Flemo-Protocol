@@ -6,7 +6,7 @@ sequenced below as the active queue.
 
 ## Next
 
-1. [3010 - Implement Character States and Animation System](phase3/3010-implement-character-states-and-animation.md)
+1. [3011 - Integrate GoalStateCompanion into the Dashboard](phase3/3011-integrate-companion-into-dashboard.md)
 
 ## Phase 1 — Foundations
 
@@ -84,10 +84,10 @@ implementation begins.
 7. [3007 - Confirm 3D Rendering Technology (React Three Fiber) and Spike](phase3/3007-evaluate-rendering-technology-and-spike.md) — implemented
 8. [3008 - Implement Companion State Contract](phase3/3008-implement-companion-state-contract.md) — implemented
 9. [3009 - Build Minimum Viable Render Prototype](phase3/3009-build-minimum-viable-render-prototype.md) — implemented
-10. [3010 - Implement Character States and Animation System](phase3/3010-implement-character-states-and-animation.md) — after 3009 (deps met)
+10. [3010 - Implement Character States and Animation System](phase3/3010-implement-character-states-and-animation.md) — implemented
 
 ### Integration and finalisation
-11. [3011 - Integrate GoalStateCompanion into the Dashboard](phase3/3011-integrate-companion-into-dashboard.md) — after 3010
+11. [3011 - Integrate GoalStateCompanion into the Dashboard](phase3/3011-integrate-companion-into-dashboard.md) — after 3010 (deps met)
 12. [3012 - Refine and Finalise GoalStateCompanion](phase3/3012-refine-and-finalise-goalstatecompanion.md) — after 3011
 
 **Phase 3 gate:** 3012 implemented and every Phase 3 exit criterion in `docs/phased-development-plan.md` verified.
