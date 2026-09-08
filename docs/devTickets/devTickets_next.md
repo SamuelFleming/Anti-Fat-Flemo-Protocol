@@ -6,7 +6,7 @@ sequenced below as the active queue.
 
 ## Next
 
-1. [3009 - Build Minimum Viable Render Prototype](phase3/3009-build-minimum-viable-render-prototype.md)
+1. [3010 - Implement Character States and Animation System](phase3/3010-implement-character-states-and-animation.md)
 
 ## Phase 1 — Foundations
 
@@ -83,8 +83,8 @@ implementation begins.
 ### Technology and implementation
 7. [3007 - Confirm 3D Rendering Technology (React Three Fiber) and Spike](phase3/3007-evaluate-rendering-technology-and-spike.md) — implemented
 8. [3008 - Implement Companion State Contract](phase3/3008-implement-companion-state-contract.md) — implemented
-9. [3009 - Build Minimum Viable Render Prototype](phase3/3009-build-minimum-viable-render-prototype.md) — after 3007 and 3008 (deps met)
-10. [3010 - Implement Character States and Animation System](phase3/3010-implement-character-states-and-animation.md) — after 3009
+9. [3009 - Build Minimum Viable Render Prototype](phase3/3009-build-minimum-viable-render-prototype.md) — implemented
+10. [3010 - Implement Character States and Animation System](phase3/3010-implement-character-states-and-animation.md) — after 3009 (deps met)
 
 ### Integration and finalisation
 11. [3011 - Integrate GoalStateCompanion into the Dashboard](phase3/3011-integrate-companion-into-dashboard.md) — after 3010

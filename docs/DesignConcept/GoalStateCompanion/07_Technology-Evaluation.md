@@ -104,6 +104,8 @@ When `prefers-reduced-motion: reduce`:
 
 Performance: spike is intentionally tiny (primitives only). Bundle-size impact of Three.js is accepted for the companion island and deferred from the critical path by lazy loading; measure again when 3009 adds real assets.
 
+**Update (3009):** throwaway `_spike/` removed; real `GoalStateCompanion` + `/dev/companion-prototype` harness supersede the spike while keeping the same R3F/lazy/fallback strategy.
+
 ---
 
 ## 9. Next

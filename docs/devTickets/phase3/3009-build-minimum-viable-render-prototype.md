@@ -1,6 +1,6 @@
 # 3009 - Build Minimum Viable Render Prototype
 
-**Status:** Blocked  
+**Status:** Implemented  
 **Phase:** 3  
 **Depends On:** 3007, 3008
 
@@ -46,4 +46,9 @@ states — before investing in the full animation system.
   per the Phase 3 Testing Approach.
 
 ## Completion Notes
-Pending implementation.
+Produced `09_Prototype-Plan.md`. Real `GoalStateCompanion` at
+`client/src/components/companion/` consumes only `context` → `resolveCompanionState` → static
+R3F seed poses (`mannequin`, `balanced`, `mildly-full`, `high-exertion`). Lazy Canvas + WebGL/
+error-boundary placeholder. Isolation harness `/dev/companion-prototype` replaced the 3007 spike.
+Smoke tests cover composition attributes + no-throw on no-WebGL. No Dashboard wiring; animation
+deferred to 3010.

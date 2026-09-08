@@ -149,6 +149,12 @@ Record a ticket here only after its acceptance criteria and verification are com
   - Notes: pure `companionState.ts` maps Dashboard-shaped day context → semantic + resolved
     behaviour. Covers on-track, 3003 conflict example, no-data, partial, time-aware morning vs
     evening, historical firm low-fuel. No render/fetch. `reasons` explainability deferred.
+- `3009 - Build Minimum Viable Render Prototype` — completed 2026-09-09
+  - Verification: `GoalStateCompanion.test.tsx` + `companionState.test.ts` 9/9; client typecheck
+    pass. Manual harness: `/dev/companion-prototype`.
+  - Notes: produced `09_Prototype-Plan.md`. Real `GoalStateCompanion` (context-only prop, lazy
+    R3F, failure placeholder). Representative static poses: mannequin / balanced / mildly-full /
+    high-exertion. 3007 `_spike` removed. Animation and Dashboard integration deferred.
 
 ## Entry Format
 
