@@ -1,11 +1,12 @@
 # Development Ticket Queue
 
 Tickets execute in dependency order. Start only tickets whose dependencies are implemented.
-`GoalStateCompanion` and all Phase 3 work remain excluded through 2015.
+`GoalStateCompanion`/Phase 3 was excluded from Phase 1-2 (through ticket 2015). Phase 3 is now
+sequenced below as the active queue.
 
 ## Next
 
-Phase 2 is fully implemented. Phase 3 has no tickets yet.
+1. [3001 - Define Character Visual Language](phase3/3001-define-character-visual-language.md)
 
 ## Phase 1 — Foundations
 
@@ -57,3 +58,30 @@ Phase 2 is fully implemented. Phase 3 has no tickets yet.
 15. [2015 - Validate and Finalise MVP](phase2/2015-validate-and-finalise-mvp.md) — implemented
 
 **Phase 2 gate:** 2015 implemented and every Phase 2 exit criterion verified. ✅ Phase 2 complete.
+
+## Phase 3 — GoalStateCompanion
+
+Deferred until adopted; now sequenced per `docs/phased-development-plan.md` §5 and
+`docs/DesignConcept/GoalStateCompanion/GSP-ConceptCharter.md` §25-26. Design-doc tickets (3001-3006)
+produce `docs/DesignConcept/GoalStateCompanion/0N_*.md` artefacts only — no app code — before any
+technology choice or implementation begins.
+
+### Design decisions (no app code)
+1. [3001 - Define Character Visual Language](phase3/3001-define-character-visual-language.md)
+2. [3002 - Define Companion State Model](phase3/3002-define-companion-state-model.md) — after 3001
+3. [3003 - Define State Composition Rules](phase3/3003-define-state-composition-rules.md) — after 3002
+4. [3004 - Define Pose and Expression Catalogue](phase3/3004-define-pose-and-expression-catalogue.md) — after 3001 and 3003
+5. [3005 - Define Animation Vocabulary](phase3/3005-define-animation-vocabulary.md) — after 3004
+6. [3006 - Define Historical and No-Data Behaviour](phase3/3006-define-historical-and-no-data-behaviour.md) — after 3002 and 3004
+
+### Technology and implementation
+7. [3007 - Evaluate Rendering Technology and Spike](phase3/3007-evaluate-rendering-technology-and-spike.md) — after 3004, 3005 and 3006
+8. [3008 - Implement Companion State Contract](phase3/3008-implement-companion-state-contract.md) — after 3002, 3003 and 3006
+9. [3009 - Build Minimum Viable Render Prototype](phase3/3009-build-minimum-viable-render-prototype.md) — after 3007 and 3008
+10. [3010 - Implement Character States and Animation System](phase3/3010-implement-character-states-and-animation.md) — after 3009
+
+### Integration and finalisation
+11. [3011 - Integrate GoalStateCompanion into the Dashboard](phase3/3011-integrate-companion-into-dashboard.md) — after 3010
+12. [3012 - Refine and Finalise GoalStateCompanion](phase3/3012-refine-and-finalise-goalstatecompanion.md) — after 3011
+
+**Phase 3 gate:** 3012 implemented and every Phase 3 exit criterion in `docs/phased-development-plan.md` verified.
