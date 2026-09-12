@@ -149,11 +149,22 @@ export function DashboardPage() {
         <div
           className={
             showCompanion
-              ? 'grid grid-cols-2 items-center gap-3 sm:grid-cols-[minmax(0,1fr)_minmax(7.5rem,10.5rem)_minmax(0,1fr)]'
-              : 'grid grid-cols-2 items-center gap-3'
+              ? 'relative grid min-h-64 grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2 sm:min-h-72 sm:gap-4'
+              : 'flex flex-wrap items-start justify-center gap-4'
           }
         >
-          <div className="flex flex-col items-center rounded-[var(--radius-md)] border border-[color-mix(in_srgb,var(--color-moss)_18%,transparent)] bg-white/70 p-3 sm:p-4">
+          {showCompanion && companionContext ? (
+            <div className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center">
+              <div className="h-full w-full max-w-xs sm:max-w-sm md:max-w-md">
+                <CompanionDashboardSlot
+                  context={companionContext}
+                  onUnavailable={() => setCompanionFailed(true)}
+                />
+              </div>
+            </div>
+          ) : null}
+
+          <div className="relative z-10 w-fit justify-self-start rounded-[var(--radius-md)] border border-[color-mix(in_srgb,var(--color-moss)_18%,transparent)] bg-white/80 p-2.5 shadow-[0_1px_0_color-mix(in_srgb,var(--color-ink)_4%,transparent)] backdrop-blur-[2px]">
             <DailyTargetGauge
               label="Calories"
               metric="calories"
@@ -164,16 +175,9 @@ export function DashboardPage() {
             />
           </div>
 
-          {showCompanion && companionContext ? (
-            <div className="col-span-2 order-last h-44 overflow-hidden rounded-[var(--radius-md)] border border-[color-mix(in_srgb,var(--color-moss)_18%,transparent)] bg-white/70 sm:col-span-1 sm:order-none sm:h-40">
-              <CompanionDashboardSlot
-                context={companionContext}
-                onUnavailable={() => setCompanionFailed(true)}
-              />
-            </div>
-          ) : null}
+          {showCompanion ? <div className="relative z-0 min-h-64 sm:min-h-72" aria-hidden /> : null}
 
-          <div className="flex flex-col items-center rounded-[var(--radius-md)] border border-[color-mix(in_srgb,var(--color-moss)_18%,transparent)] bg-white/70 p-3 sm:p-4">
+          <div className="relative z-10 w-fit justify-self-end rounded-[var(--radius-md)] border border-[color-mix(in_srgb,var(--color-moss)_18%,transparent)] bg-white/80 p-2.5 shadow-[0_1px_0_color-mix(in_srgb,var(--color-ink)_4%,transparent)] backdrop-blur-[2px]">
             <DailyTargetGauge
               label="Move"
               metric="move"
